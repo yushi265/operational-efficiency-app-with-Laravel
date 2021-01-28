@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/customer', 'CustomerController@index')->name('index');
+Route::get('/customer/create', 'CustomerController@create')->name('create');
+Route::post('/customer', 'CustomerController@store')->name('store');
 
 Auth::routes();
 
