@@ -78,7 +78,7 @@
         </div>
         <button type="submit" class="btn btn-outline-primary">登録</button>
     </form>
-
+    <br>
     @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -87,6 +87,8 @@
             @endforeach
         </ul>
     </div>
-@endif
+    @endif
+
+    <a href="{{ route('index') }}">←戻る</a>
 
         @endsection

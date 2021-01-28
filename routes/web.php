@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/customer', 'CustomerController@index')->name('index');
-Route::get('/customer/create', 'CustomerController@create')->name('create');
-Route::post('/customer', 'CustomerController@store')->name('store');
+Route::get('/customers', 'CustomerController@index')->name('index');
+Route::get('/customers/create', 'CustomerController@create')->name('create');
+Route::post('/customers', 'CustomerController@store')->name('store');
 
 Auth::routes();
 
