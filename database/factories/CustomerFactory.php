@@ -9,11 +9,11 @@ $factory->define(Customer::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'gender' => '男',
-        'birth' => $faker->date,
-        'tel' => '12345678901',
+        'birth' => $faker->date($format = 'Y-m-d', $max = 'now'),
+        'tel' => $faker->isbn10,
         'address' => $faker->address,
         'mail' => $faker->unique()->safeEmail,
-        'job' => '勤め人',
-        'company' => $faker->name
+        'job' => '勤人',
+        'company' => $faker->company
     ];
 });
