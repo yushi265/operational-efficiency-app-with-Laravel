@@ -13,13 +13,6 @@
 
 use App\Http\Controllers\CustomerController;
 
-Route::get('/customers', 'CustomerController@index')->name('index');
-Route::get('/customers/create', 'CustomerController@create')->name('create');
-Route::post('/customers', 'CustomerController@store')->name('store');
-Route::get('/customers/{customer}', 'CustomerController@show')->name('show');
-Route::get('/customers/{customer}/edit', 'CustomerController@edit')->name('edit');
-Route::patch('/customers/{customer}', 'CustomerController@update')->name('update');
+Route::resource('customers', 'CustomerController');
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

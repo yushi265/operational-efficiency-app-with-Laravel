@@ -120,6 +120,6 @@
     </div>
     @endif
 
-    <a href="{{ route('index') }}">←戻る</a>
+    <a href="{{ url('/customers') }}">←戻る</a>
 
         @endsection

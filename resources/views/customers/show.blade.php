@@ -21,7 +21,7 @@
             </tr>
             <tr>
                 <th scope="row" class="text-center">生年月日</th>
-                <td>{{ $customer->birth}}</td>
+                <td>{!! str_replace('-', '/', $customer->birth) !!}</td>
             </tr>
             <tr>
                 <th scope="row" class="text-center">電話番号</th>
@@ -48,7 +48,7 @@
 
     <a class="btn btn-outline-primary" href="{{ action('CustomerController@edit', $customer) }}" role="button">編集</a>
     <br><br>
-    <a href="{{ route('index') }}">←戻る</a>
+    <a href="{{ url('/customers') }}">←戻る</a>
 </div>
 
 @endsection
