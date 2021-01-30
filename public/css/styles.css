@@ -4,4 +4,9 @@
 .page {
     display: inline-block;
 }
-
+.blue {
+    color: blue;
+}
+.red {
+    color: red;
+}

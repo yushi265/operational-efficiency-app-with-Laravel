@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container">
-    <h4>顧客データベース</h4>
+    <h4>顧客データベース　　　　個人|<a href="#">法人</a></h4>
     <table class="table table-hover">
         <thead>
             <tr>
@@ -23,7 +23,7 @@
                 <td>
                     <a href="{{ url('/customers', $customer->id)}}">{{ $customer->name }}</a>
                 </td>
-                <td>{{ $customer->gender }}</td>
+                <td>@include('customers.gender')</td>
                 <td>{{ $customer->age }}</td>
                 {{-- <td>{{ $customer->birth }}</td> --}}
                 <td>{{ $customer->tel }}</td>
