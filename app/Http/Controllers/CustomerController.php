@@ -32,7 +32,7 @@ class CustomerController extends Controller
         $customer->job = $request->job;
         $customer->company = $request->company;
         $customer->save();
-        return redirect()->route('index');
+        return redirect()->action('CustomerController@index');
     }
 
     public function show(Customer $customer)
