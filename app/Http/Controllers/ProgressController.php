@@ -4,9 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Progress;
+use App\Customer;
+use Illuminate\Support\Facades\Auth;
 
 class ProgressController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +21,7 @@ class ProgressController extends Controller
      */
     public function index()
     {
-        $progresses = Progress::all();
+        $progresses = Progress::latest()->get();
         return view('progresses.index')->with('progresses', $progresses);
     }
 
@@ -25,7 +32,8 @@ class ProgressController extends Controller
      */
     public function create()
     {
-        //
+        $customers = Customer::all();
+        return view('progresses.create')->with('customers', $customers);
     }
 
     /**
@@ -34,9 +42,15 @@ class ProgressController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Customer $customer)
     {
-        //
+        $progress = new Progress();
+        $progress->user_id = Auth::id();
+        $progress->customer_id = $request->customer_id;
+        $progress->subject = $request->status;
+        $progress->body = $request->body;
+        $progress->save();
+        return redirect()->action('ProgressController@index');
     }
 
     /**
