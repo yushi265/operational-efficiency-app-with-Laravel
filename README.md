@@ -64,4 +64,35 @@
 **経過**
 1. progressテーブルの作成。ユーザー、対象顧客とリレーションをし一覧表示
 
+**工夫点**
+- リレーション先の子テーブルを並び替える
+
+//変更前
+
+    - CustomerController.php
+            public function show(Customer $customer)
+            {
+                $customer->age = Customer::getAge($customer->birth);
+                $progresses = Progress::latest()->get();
+                return view('customers.show')->with(['customer' => $customer, 'progresses', $progresses]);  
+            }
+    - show.blade.php
+            @forelse ($prpgresses as $progress)
+            @empty
+            @endforelse
+
+//変更後
+
+    - CustomerController.php
+            public function show(Customer $customer)
+                {
+                    $customer->age = Customer::getAge($customer->birth);
+                    // $progresses = Progress::latest()->get();
+                    return view('customers.show')->with('customer', $customer);
+                }
+    - show.blade.php
+            @forelse ($customer->progresses()->orderby('id', 'desc')->get() as $progress)
+            @empty
+            @endforelse
+
 ## 課題点

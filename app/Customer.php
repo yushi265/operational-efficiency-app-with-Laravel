@@ -9,7 +9,7 @@ class Customer extends Model
 {
     protected $fillable = ['name', 'gender', 'birth', 'tel', 'address', 'mail', 'job', 'company'];
 
-    public static function progresses() {
+    public function progresses() {
         return $this->hasMany('App\Progress');
     }
 
