@@ -55,7 +55,7 @@
         <tbody>
             <tr>
                 <th scope="row" class="text-center col-md-3">{{ $progress->user->name }}</th>
-                <td class="col-md-4"></td>
+                <td class="col-md-4">{{ $progress->created_at }}</td>
             </tr>
             <tr>
                 <th scope="row" class="text-center">状態</th>

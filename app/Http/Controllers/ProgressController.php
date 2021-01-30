@@ -97,4 +97,24 @@ class ProgressController extends Controller
     {
         //
     }
+
+    public function search(Request $request)
+    {
+        $query = Progress::query();
+        if($request->status === null) {
+            $results = $query
+                ->where('body', 'like', '%' . $request->search . '%')
+                ->get();
+        } else {
+            $results = $query
+                ->where('subject', 'like', '%' . $request->status . '%')
+                ->where('body', 'like', '%' . $request->search . '%')
+                ->get();
+        }
+
+        return view('progresses.search')->with([
+            'results' => $results,
+            'request' => $request,
+        ]);
+    }
 }

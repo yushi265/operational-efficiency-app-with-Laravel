@@ -16,5 +16,6 @@ use App\Http\Controllers\CustomerController;
 Route::resource('customers', 'CustomerController');
 
 Route::resource('progresses', 'ProgressController');
+Route::post('/progresses/search', 'ProgressController@search');
 
 Auth::routes();

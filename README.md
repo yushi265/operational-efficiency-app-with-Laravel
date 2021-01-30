@@ -63,17 +63,19 @@
 
 **経過**
 1. progressテーブルの作成。ユーザー、対象顧客とリレーションをし一覧表示
+2. 進捗一覧、追加画面作成
+3. 顧客詳細画面で進捗を活動履歴として表示。その際に最新順に並び替える
 
 **工夫点**
-- リレーション先の子テーブルを並び替える
+- 顧客詳細画面で表示をする際、リレーション先の子テーブルを並び替える
 
-//変更前
+//変更前 - 進捗を直接最新順で取得
 
     - CustomerController.php
             public function show(Customer $customer)
             {
                 $customer->age = Customer::getAge($customer->birth);
-                **$progresses = Progress::latest()->get();**
+                $progresses = Progress::latest()->get();
                 return view('customers.show')->with(['customer' => $customer, 'progresses', $progresses]);  
             }
     - show.blade.php
@@ -81,7 +83,7 @@
             @empty
             @endforelse
 
-//変更後
+//変更後 - 直接取得せず、リレーションで並び替えて表示
 
     - CustomerController.php
             public function show(Customer $customer)
@@ -90,7 +92,7 @@
                     return view('customers.show')->with('customer', $customer);
                 }
     - show.blade.php
-            @forelse (**$customer->progresses()->orderby('id', 'desc')->get()** as $progress)
+            @forelse ($customer->progresses()->orderby('id', 'desc')->get() as $progress)
             @empty
             @endforelse
 
