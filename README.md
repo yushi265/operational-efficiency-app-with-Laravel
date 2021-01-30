@@ -73,11 +73,11 @@
             public function show(Customer $customer)
             {
                 $customer->age = Customer::getAge($customer->birth);
-                $progresses = Progress::latest()->get();
+                **$progresses = Progress::latest()->get();**
                 return view('customers.show')->with(['customer' => $customer, 'progresses', $progresses]);  
             }
     - show.blade.php
-            @forelse ($prpgresses as $progress)
+            @forelse ($progresses as $progress)
             @empty
             @endforelse
 
@@ -87,11 +87,10 @@
             public function show(Customer $customer)
                 {
                     $customer->age = Customer::getAge($customer->birth);
-                    // $progresses = Progress::latest()->get();
                     return view('customers.show')->with('customer', $customer);
                 }
     - show.blade.php
-            @forelse ($customer->progresses()->orderby('id', 'desc')->get() as $progress)
+            @forelse (**$customer->progresses()->orderby('id', 'desc')->get()** as $progress)
             @empty
             @endforelse
 
