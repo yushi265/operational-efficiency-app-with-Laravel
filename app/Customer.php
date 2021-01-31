@@ -9,6 +9,14 @@ class Customer extends Model
 {
     protected $fillable = ['name', 'gender', 'birth', 'tel', 'address', 'mail', 'job', 'company'];
 
+    public function progresses() {
+        return $this->hasMany('App\Progress');
+    }
+
+    /**
+     * すべての顧客情報を取得
+     * @return array $customers
+     */
     public static function getAllCustomer()
     {
         $customers = DB::table('customers')->paginate(15);
@@ -20,6 +28,11 @@ class Customer extends Model
         return $customers;
     }
 
+    /**
+     * 現在の年齢を取得
+     * @param date $birth
+     * @return int $age
+     */
     public static function getAge($birth)
     {
         $birthday = strtotime($birth);

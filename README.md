@@ -23,6 +23,7 @@
 - 顧客情報管理
 - 営業進捗管理
 - 営業支援機能
+- 日報管理
 - タスク管理
 - 天気予報API？
 - 郵便番号から住所を取得するAPI?
@@ -48,11 +49,51 @@
 **経過**
 1. customersテーブルの作成とseeder,factoryでダミーレコード作成
 2. 顧客一覧画面、登録画面の作成、CustomerRequest.phpでバリデーション
+3. 顧客詳細、編集画面の作成。年齢計算の関数を作成し最新の年齢を表示するように。
 
 **工夫点**
 - customersテーブルに年齢カラムをつくらない
 　年齢カラムを作ってしまうと経年時に年齢が反映されなくなってしまうため。そのため、顧客レコード取得時に年齢を計算する関数を用意し正確な年齢を反映できるようにした。
 
+### 営業進捗管理
+**概要**
+- それぞれのユーザーが行った営業の進捗を登録し、情報を共有できるようにする。
+- 進捗情報を顧客IDと紐づけてデータベースへ格納。顧客詳細画面でも表示できるようにする。
+- 進捗の種類は、有効情報、営業進捗、契約成立で分ける。
 
+**経過**
+1. progressテーブルの作成。ユーザー、対象顧客とリレーションをし一覧表示
+2. 進捗一覧、追加画面作成
+3. 顧客詳細画面で進捗を活動履歴として表示。その際に最新順に並び替える
+
+**工夫点**
+- 顧客詳細画面で表示をする際、リレーション先の子テーブルを並び替える
+
+//変更前 - 進捗を直接最新順で取得
+
+    - CustomerController.php
+            public function show(Customer $customer)
+            {
+                $customer->age = Customer::getAge($customer->birth);
+                $progresses = Progress::latest()->get();
+                return view('customers.show')->with(['customer' => $customer, 'progresses', $progresses]);  
+            }
+    - show.blade.php
+            @forelse ($progresses as $progress)
+            @empty
+            @endforelse
+
+//変更後 - 直接取得せず、リレーションで並び替えて表示
+
+    - CustomerController.php
+            public function show(Customer $customer)
+                {
+                    $customer->age = Customer::getAge($customer->birth);
+                    return view('customers.show')->with('customer', $customer);
+                }
+    - show.blade.php
+            @forelse ($customer->progresses()->orderby('id', 'desc')->get() as $progress)
+            @empty
+            @endforelse
 
 ## 課題点

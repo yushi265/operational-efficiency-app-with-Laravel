@@ -46,7 +46,39 @@
         </tbody>
     </table>
 
-    <a class="btn btn-outline-primary" href="{{ action('CustomerController@edit', $customer) }}" role="button">編集</a>
+    <a class="btn btn-outline-primary" href="{{ action('CustomerController@edit', $customer) }}" role="button">編集</a><br><br>
+
+    <h4>活動記録</h4>
+
+    @forelse ($customer->progresses()->orderby('id', 'desc')->get() as $progress)
+    <table class="table">
+        <tbody>
+            <tr>
+                <th scope="row" class="text-center col-md-3">{{ $progress->user->name }}</th>
+                <td class="col-md-4">{{ $progress->created_at }}</td>
+            </tr>
+            <tr>
+                <th scope="row" class="text-center">状態</th>
+                <td >{{ $progress->subject }}</td>
+            </tr>
+            <tr>
+                <th scope="row" class="text-center">内容</th>
+                <td>{{ $progress->body }}</td>
+            </tr>
+        </tbody>
+    </table>
+    @empty
+    <table class="table">
+        <tbody>
+            <tr>
+                <th scope="row" class="text-center">
+                    記録はありません
+                </th>
+            </tr>
+        </tbody>
+    </table>
+    @endforelse
+
     <br><br>
     <a href="{{ url('/customers') }}">←戻る</a>
 </div>
