@@ -37,7 +37,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public static function progresses() {
+    public function progresses()
+    {
         return $this->hasMany('App\Progress');
+    }
+
+    public function contract()
+    {
+        return $this->hasMany('App\Contract');
     }
 }

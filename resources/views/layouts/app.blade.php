@@ -37,6 +37,7 @@
                     <ul class="navbar-nav mr-auto">
                         <li><a href="{{url('/customers')}}">顧客管理　</a></li>
                         <li><a href="{{url('/progresses')}}">進捗管理　</a></li>
+                        <li><a href="{{url('/contracts')}}">成約情報　</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

@@ -7,10 +7,16 @@ use Illuminate\Support\Facades\DB;
 
 class Customer extends Model
 {
-    protected $fillable = ['name', 'gender', 'birth', 'tel', 'address', 'mail', 'job', 'company'];
+    protected $fillable = ['name', 'gender', 'birth', 'tel', 'address', 'mail', 'job', 'company', 'ordinary_deposit', 'time_deposit', 'loan_amount'];
 
-    public function progresses() {
+    public function progresses()
+    {
         return $this->hasMany('App\Progress');
+    }
+
+    public function contract()
+    {
+        return $this->hasMany('App\Contract');
     }
 
     /**

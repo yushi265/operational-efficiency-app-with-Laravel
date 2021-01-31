@@ -18,4 +18,6 @@ Route::resource('customers', 'CustomerController');
 Route::resource('progresses', 'ProgressController');
 Route::post('/progresses/search', 'ProgressController@search');
 
+Route::resource('/contracts', 'ContractController');
+
 Auth::routes();
