@@ -59,7 +59,7 @@
             </tr>
             <tr>
                 <th scope="row" class="text-center">状態</th>
-                <td>{{ $progress->subject }}</td>
+                <td >{{ $progress->subject }}</td>
             </tr>
             <tr>
                 <th scope="row" class="text-center">内容</th>

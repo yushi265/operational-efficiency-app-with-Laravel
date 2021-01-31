@@ -6,8 +6,7 @@
     <h4>
         @if ($request->status === NULL)
         検索結果:「{{$request->search}}」
-        @endif
-        @if ($request->status !== NULL)
+        @else
         検索結果:「{{$request->search}},{{$request->status}}」
         @endif
     </h4>
