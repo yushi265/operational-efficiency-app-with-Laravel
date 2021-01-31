@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Customer;
+use App\Contract;
+use Illuminate\Support\Facades\Auth;
 
 class ContractController extends Controller
 {
@@ -14,7 +16,8 @@ class ContractController extends Controller
      */
     public function index()
     {
-        return view('contracts.index');
+        $contracts = Contract::latest()->get();
+        return view('contracts.index')->with('contracts', $contracts);
     }
 
     /**
@@ -36,7 +39,14 @@ class ContractController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $contract = new Contract();
+        $contract->user_id = Auth::id();
+        $contract->customer_id = $request->customer_id;
+        $contract->contract_type = $request->contract_type;
+        $contract->amount = $request->amount;
+        $contract->due_date = $request->due_date;
+        $contract->save();
+        return redirect('/contracts');
     }
 
     /**
@@ -82,5 +92,19 @@ class ContractController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function search(Request $request)
+    {
+        $query = Contract::query();
+        $results = $query
+            ->where('contract_type', $request->contract_type)
+            ->orderby('created_at', 'desc')
+            ->get();
+
+        return view('contracts.search')->with([
+            'results' => $results,
+            'request' => $request,
+        ]);
     }
 }

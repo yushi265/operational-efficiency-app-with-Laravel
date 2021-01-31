@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container">
-    <form action="{{ url('/progresses') }}" method="post">
+    <form action="{{ url('/contracts') }}" method="post">
         @csrf
             <div class="col-md-8">
                 <div class="form-floating mb-3">
@@ -19,9 +19,9 @@
             <div class="col-md-4">
                 <div class="form-floating mb-3">
                     <select class="form-select" name="contract_type" id="contract_type" aria-label="Floating label select example" required>
-                        <option value="普通預金" selected>普通預金</option>
-                        <option value="定期預金">定期預金</option>
-                        <option value="融資">融資</option>
+                        <option value="02" selected>普通預金</option>
+                        <option value="03">定期預金</option>
+                        <option value="04">融資</option>
                     </select>
                     <label for="contract_type">成約種類</label>
                 </div>
@@ -32,10 +32,15 @@
                     <label for="amount">金額</label>
                 </div>
             </div>
-            <div class="col-md">
+            <div class="col-md-4">
                 <div class="form-floating mb-3">
-                    <input type="text" name="due_date" class="form-control" id="due_date" placeholder="期限日" required>
-                    <label for="amount">期限日</label>
+                    <select class="form-select" name="due_date" id="due_date" aria-label="Floating label select example">
+                        <option value="" selected>-</option>
+                        @for ($i = 1; $i <= 10; $i++)
+                        <option value="{{ date("Y/m/d", strtotime('+'.$i.' year')) }}">{{ $i }}年</option>
+                        @endfor
+                    </select>
+                    <label for="due_date">期間</label>
                 </div>
             </div>
         <button type="submit" class="btn btn-outline-primary">登録</button>
@@ -51,6 +56,6 @@
     </div>
     @endif
 
-    <a href="{{ url('/progresses') }}">←戻る</a>
+    <a href="{{ url('/contracts') }}">←戻る</a>
 
-        @endsection
+    @endsection
