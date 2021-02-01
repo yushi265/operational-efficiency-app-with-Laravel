@@ -17,6 +17,21 @@ class Contract extends Model
     {
         return $this->belongsTo('App\Customer');
     }
+
+    /**
+     * 預金種別合計を取得
+     * @param int $id
+     * @return array $status
+     */
+    public static function getDepositStatus($id)
+    {
+        $status = [];
+        $status['ordinary'] = self::where('customer_id', $id)->where('contract_type', 2)->sum('amount');
+        $status['time'] = self::where('customer_id', $id)->where('contract_type', 3)->sum('amount');
+        $status['loan'] = self::where('customer_id', $id)->where('contract_type', 4)->sum('amount');
+
+        return $status;
+    }
 }
 
 

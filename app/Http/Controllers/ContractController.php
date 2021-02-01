@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Customer;
+use App\Progress;
 use App\Contract;
 use Illuminate\Support\Facades\Auth;
 
@@ -46,6 +47,26 @@ class ContractController extends Controller
         $contract->amount = $request->amount;
         $contract->due_date = $request->due_date;
         $contract->save();
+
+
+        $progress = new Progress();
+        $progress->user_id = Auth::id();
+        $progress->customer_id = $request->customer_id;
+        $progress->subject = '契約成立';
+
+        switch ($request->contract_type) {
+            case '2':
+                $progress->body = '普通預金￥' . number_format($request->amount) . '入金';
+                break;
+            case '3':
+                $progress->body = '定期預金￥' . number_format($request->amount) . '契約';
+                break;
+            case '4':
+                $progress->body = '融資￥' . number_format($request->amount) . '実行';
+                break;
+        }
+        $progress->save();
+
         return redirect('/contracts');
     }
 

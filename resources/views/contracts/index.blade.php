@@ -22,7 +22,7 @@
         <tbody>
             <tr>
                 <th scope="row" class="text-center col-md-3">顧客名</th>
-                <td class="col-md-4">{{ $contract->customer->name}}</td>
+                <td class="col-md-4"><a href="{{ action('CustomerController@show', $contract->customer_id)}}">{{ $contract->customer->name}}</a></td>
             </tr>
             <tr>
                 <th scope="row" class="text-center">成約種類</th>

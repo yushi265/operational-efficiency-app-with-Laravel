@@ -7,10 +7,6 @@
 
     <table class="table">
         <tbody>
-            {{-- <tr>
-                <th scope="row" class="text-center col-md-3">名前</th>
-                <td class="col-md-4">{{ $customer->name }}</td>
-            </tr> --}}
             <tr>
                 <th scope="row" class="text-center  col-md-3">性別</th>
                 <td class="col-md-4">{{ $customer->gender}}</td>
@@ -48,6 +44,25 @@
 
     <a class="btn btn-outline-primary" href="{{ action('CustomerController@edit', $customer) }}" role="button">編集</a><br><br>
 
+    <h4>預金状況</h4>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th scope="col" class="text-center col-md-4">普通預金</th>
+                <th scope="col" class="text-center col-md-4">定期預金</th>
+                <th scope="col" class="text-center col-md-4">融資</th>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <td class="text-center">￥{{ number_format($deposit_status['ordinary']) }}</td>
+                <td class="text-center">￥{{ number_format($deposit_status['time']) }}</td>
+                <td class="text-center">￥{{ number_format($deposit_status['loan']) }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br>
     <h4>活動記録</h4>
 
     @forelse ($customer->progresses()->orderby('id', 'desc')->get() as $progress)

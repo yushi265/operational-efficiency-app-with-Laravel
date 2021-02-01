@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\CustomerRequest;
 use App\Customer;
 use App\Progress;
+use App\Contract;
 use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller
@@ -39,8 +40,9 @@ class CustomerController extends Controller
     public function show(Customer $customer)
     {
         $customer->age = Customer::getAge($customer->birth);
-        // $progresses = Progress::latest()->get();
-        return view('customers.show')->with('customer', $customer);
+        $deposit_status = Contract::getDepositStatus($customer->id);
+
+        return view('customers.show')->with(['customer' => $customer, 'deposit_status' => $deposit_status]);
     }
 
     public function edit(Customer $customer)

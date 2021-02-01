@@ -67,4 +67,5 @@ class Customer extends Model
 
         return $age;
     }
+
 }

@@ -1,8 +1,9 @@
 # SFA的業務効率化アプリ
-最終更新：2021/01/31
+作成開始日：2021/01/25　　最終更新日：2021/02/01
 
 ## このプロジェクトについて
 　私は現在、金融機関で営業職として仕事をしています。業務を行う中で、不便さを感じることが多々あります。それらを解決し、一つにまとめて管理できるようなシステムがあれば業務の効率化が図れると考えました。WEB系開発企業のバックエンドエンジニアとして転職を決意するにあたり、開発の練習として今回のアプリを制作することに決めました。
+
 **現在の不便な点**
 - それぞれの担当者との情報共有は基本、毎朝の会議で行うのみで、各自メモやコピーで管理
 - 一人の顧客につき担当者が2人存在する場合があり、情報共有に注意が必要
@@ -26,6 +27,7 @@
 ## 主な機能
 - 顧客情報管理
 - 営業進捗管理
+- 成約管理機能
 - 営業支援機能
 - 日報管理
 - タスク管理
@@ -84,7 +86,9 @@
             }
     - show.blade.php
             @forelse ($progresses as $progress)
+                {{ $progress->yourdata }}
             @empty
+                進捗がありません
             @endforelse
 
 //変更後 - 直接取得せず、リレーションで並び替えて表示
@@ -97,7 +101,9 @@
                 }
     - show.blade.php
             @forelse ($customer->progresses()->orderby('id', 'desc')->get() as $progress)
+                {{ $progress->yourdata }}
             @empty
+                進捗がありません
             @endforelse
 
 ### 成約管理
@@ -107,7 +113,22 @@
 - 顧客詳細画面でも表示できるようにする
 
 **経過**
-- contractsテーブルを作成。ユーザー、カスタマーとリレーション。
-- 一覧ページ、検索機能を作成。
+1. contractsテーブルを作成。ユーザー、カスタマーとリレーション。
+2. 一覧ページ、検索機能を作成。
+3. 顧客詳細画面に預金種別ごとに成約した合計金額を表示。
+4. 成約を追加したときに、進捗テーブルにも「契約成立」としてデータを挿入。
+
+**工夫点**
+- モデルContract.phpにて対象顧客の預金合計を取得する関数を作成。連想配列に入れたがもっと良い方法がある気がする。
+
+        public static function getDepositStatus($id)
+            {
+                $status = [];
+                $status['ordinary'] = self::where('customer_id', $id)->where('contract_type', 2)->sum('amount');
+                $status['time'] = self::where('customer_id', $id)->where('contract_type', 3)->sum('amount');
+                $status['loan'] = self::where('customer_id', $id)->where('contract_type', 4)->sum('amount');
+
+                return $status;
+            }
 
 ## 課題点
