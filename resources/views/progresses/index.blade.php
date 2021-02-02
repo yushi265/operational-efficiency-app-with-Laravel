@@ -24,7 +24,7 @@
     <table class="table">
         <tbody>
             <tr>
-                <th scope="row" class="text-center col-md-3">{{ $progress->user->name }}</th>
+                <td class="text-center col-md-3">{{ $progress->user->name }}</td>
                 <td class="col-md-4">
                     <a href="{{ action('CustomerController@show', $progress->customer->id)}}">{{$progress->customer->id}}　:　{{ $progress->customer->name }}</a>
                 </td>
