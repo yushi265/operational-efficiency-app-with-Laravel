@@ -3,7 +3,11 @@
 @section('content')
 
 <div class="container">
-    <h4>成約一覧　　<a class="btn btn-outline-primary" href="{{ action('ContractController@create') }}" role="button">追加</a></h4>
+    <h4>成約一覧
+        @can('admin-higher')
+        <a class="btn btn-outline-primary" href="{{ action('ContractController@create') }}" role="button">追加</a>
+        @endcan
+    </h4>
 
     <form action="{{ url('/contracts/search' )}}" method="post">
         <div class="input-group mb-3">

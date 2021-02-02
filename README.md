@@ -131,4 +131,34 @@
                 return $status;
             }
 
+### 管理者権限
+**概要**
+- ユーザーを*一般、管理者、システム管理者*に分けて権限を与え使える機能を制限する。
+- システム管理者のみが使用できるのは権限の変更
+- 管理者以上で使用できるのは、顧客追加・編集、成約追加の機能。
+- そのほかは一般ユーザーも使用できるようにする。
+
+**経過**
+1. usersテーブルにroleカラムを追加。*一般 = 10、管理者 = 5、システム管理者 = 1*で管理する。
+2. ゲート機能を利用して、roleの値ごとに権限を与える。
+3. ブレードないも *@can* を使用して権限によって表示を変更。
+
+
+**工夫点**
+- *CustomerController@create*の404エラー
+　ルートをいじっていたら404エラーに。原因はURLがかぶっていたため。ルートグループの順番を入れ替えて解決
+
+        // 全ユーザ
+        Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
+            Route::get('/customers', 'CustomerController@index');
+            Route::get('/customers/{customer}', 'CustomerController@show'); ←←←ここ
+        });
+        // 管理者以上
+        Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
+            Route::get('/customers/create', 'CustomerController@create');  ←←←ここ
+            Route::post('/customers', 'CustomerController@store');
+            Route::get('/customers/{customer}/edit', 'CustomerController@edit');
+            Route::patch('/customers/{customer}', 'CustomerController@update');
+        });
+
 ## 課題点

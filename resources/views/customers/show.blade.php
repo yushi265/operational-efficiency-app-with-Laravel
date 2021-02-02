@@ -42,7 +42,9 @@
         </tbody>
     </table>
 
+    @can('admin-higher')
     <a class="btn btn-outline-primary" href="{{ action('CustomerController@edit', $customer) }}" role="button">編集</a><br><br>
+    @endcan
 
     <h4>預金状況</h4>
     <table class="table">
