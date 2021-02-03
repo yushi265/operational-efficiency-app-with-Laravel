@@ -44,15 +44,10 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{url('/contracts')}}">成約情報</a>
                         </li>
-                        @can('admin-higher')
+                        @can('system-only')
                         <li class="nav-item">
-                            <a class="nav-link" href="#">管理画面</a>
+                            <a class="nav-link" href="{{ url('/admin') }}">権限管理</a>
                         </li>
-                        @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('登録') }}</a>
-                        </li>
-                        @endif
                         @endcan
                     </ul>
 

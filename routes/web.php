@@ -18,6 +18,8 @@ Auth::routes();
 
 // システム管理者のみ
 Route::group(['middleware' => ['auth', 'can:system-only']], function () {
+    Route::get('/admin', 'UserController@admin_index');
+    Route::patch('/admin', 'UserController@admin_set');
 });
 
 // 管理者以上
