@@ -48,6 +48,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/admin') }}">権限管理</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">登録</a>
+                        </li>
                         @endcan
                     </ul>
 
