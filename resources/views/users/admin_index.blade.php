@@ -10,7 +10,7 @@
     <form action="{{ action('UserController@admin_set') }}" method="post">
         @csrf
         @method('patch')
-        <table class="table">
+        <table class="table table-bordered">
             <tbody>
                 <tr>
                     <th class="text-center col-md-3">ID</th>

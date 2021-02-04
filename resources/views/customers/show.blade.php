@@ -5,7 +5,7 @@
 <div class="container">
 <h4>　　{{ $customer->id}}　　{{ $customer->name}}</h4>
 
-    <table class="table">
+    <table class="table table-bordered">
         <tbody>
             <tr>
                 <th scope="row" class="text-center  col-md-3">性別</th>
@@ -47,7 +47,7 @@
     @endcan
 
     <h4>預金状況</h4>
-    <table class="table">
+    <table class="table table-bordered">
         <tbody>
             <tr>
                 <th scope="col" class="text-center col-md-4">普通預金</th>
@@ -68,7 +68,7 @@
     <h4>活動記録</h4>
 
     @forelse ($customer->progresses()->orderby('id', 'desc')->get() as $progress)
-    <table class="table">
+    <table class="table table-bordered">
         <tbody>
             <tr>
                 <th scope="row" class="text-center col-md-3">{{ $progress->user->name }}</th>
