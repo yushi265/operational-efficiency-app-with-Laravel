@@ -169,13 +169,13 @@
 - ユーザー登録をシステム管理者に限定するためコード書き換え
     - App\Http\Controllers\Auth\RegisterController.php
         
-            //リダイレクトとコンストラクタを無効化
-
+            〇リダイレクト無効化、コンストラクタを書き換え
             // protected $redirectTo = RouteServiceProvider::HOME;
 
-            //public function __construct()
+            public function __construct()
             {
                 // $this->middleware('guest');
+                $this->middleware(['auth', 'can:system-only']);
             }
 
     - Illuminate\Foundation\Auth\RegistersUsers.php
@@ -184,12 +184,12 @@
                 $this->validator($request->all())->validate();
                 event(new Registered($user = $this->create($request->all())));
 
-                //追加ユーザーログインを無効化
+                〇追加ユーザーログインを無効化
                 // $this->guard()->login($user);
                 // return $this->registered($request, $user)
                 // ?: redirect($this->redirectPath());
 
-                //リダイレクト先を追加
+                〇リダイレクト先を追加
                 return redirect('/admin');
             }
 
