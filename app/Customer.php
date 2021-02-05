@@ -25,7 +25,7 @@ class Customer extends Model
      */
     public static function getAllCustomer()
     {
-        $customers = DB::table('customers')->paginate(15);
+        $customers = DB::table('customers')->paginate(10);
 
         foreach ($customers as $customer) {
             $customer->age = self::getAge($customer->birth);

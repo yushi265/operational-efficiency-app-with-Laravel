@@ -65,9 +65,9 @@
     </table>
 
     <br>
-    <h4>活動記録</h4>
+    <h4>活動記録(最新５件)</h4>
 
-    @forelse ($customer->progresses()->orderby('id', 'desc')->get() as $progress)
+    @forelse ($customer->progresses()->orderby('id', 'desc')->limit(5)->get() as $progress)
     <table class="table table-bordered">
         <tbody>
             <tr>

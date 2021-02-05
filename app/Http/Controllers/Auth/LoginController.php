@@ -41,7 +41,7 @@ class LoginController extends Controller
 
     protected function loggedOut(Request $request)
     {
-        return redirect('/customers');
+        return redirect('/home');
     }
 
     public function username()

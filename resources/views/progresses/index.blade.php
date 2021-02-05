@@ -43,6 +43,11 @@
     </table>
 
     @endforeach
+    <div class="paginate">
+        <div class="page">
+            {{ $progresses->links() }}
+        </div>
+    </div>
 </div>
 
 @endsection

@@ -4,9 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Progress;
 
 class UserController extends Controller
 {
+    public function home()
+    {
+        $latest_progresses = Progress::latest()->limit(3)->get();
+        return view('home')->with('latest_progresses', $latest_progresses);
+    }
+
     public function admin_index()
     {
         $users = User::all();

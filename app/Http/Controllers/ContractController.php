@@ -17,7 +17,7 @@ class ContractController extends Controller
      */
     public function index()
     {
-        $contracts = Contract::latest()->get();
+        $contracts = Contract::latest()->paginate(10);
         return view('contracts.index')->with('contracts', $contracts);
     }
 
@@ -121,7 +121,7 @@ class ContractController extends Controller
         $results = $query
             ->where('contract_type', $request->contract_type)
             ->orderby('created_at', 'desc')
-            ->get();
+            ->paginate(10);
 
         return view('contracts.search')->with([
             'results' => $results,

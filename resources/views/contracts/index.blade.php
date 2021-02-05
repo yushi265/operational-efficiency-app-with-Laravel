@@ -59,6 +59,11 @@
         </tbody>
     </table>
     @endforeach
+    <div class="paginate">
+        <div class="page">
+            {{ $contracts->links() }}
+        </div>
+    </div>
 </div>
 
 @endsection

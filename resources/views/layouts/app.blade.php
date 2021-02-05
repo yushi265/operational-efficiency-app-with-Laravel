@@ -36,6 +36,9 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
+                            <a class="nav-link" href="{{url('/home')}}">HOME</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{url('/customers')}}">顧客管理</a>
                         </li>
                         <li class="nav-item">
@@ -67,8 +70,12 @@
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
-                                    @can('admin-higher')
+                                    @can('system-only')
+                                        (システム管理者)
+                                    @elsecan('admin-higher')
                                         (管理者)
+                                    @elsecan('user-higher')
+                                        (一般)
                                     @endcan
                                     <span class="caret"></span>
                                 </a>
@@ -94,6 +101,10 @@
         <main class="py-4">
             @yield('content')
         </main>
+    </div>
+
+    <div class="footer">
+        © 2021 SHINA
     </div>
 </body>
 </html>

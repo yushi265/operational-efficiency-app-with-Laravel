@@ -35,6 +35,8 @@ Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
 
 // 全ユーザ
 Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
+    Route::get('/home', 'UserController@home');
+
     Route::get('/customers', 'CustomerController@index');
     Route::get('/customers/{customer}', 'CustomerController@show');
 
