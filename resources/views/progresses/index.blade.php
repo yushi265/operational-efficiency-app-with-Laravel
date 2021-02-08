@@ -21,14 +21,16 @@
     </form>
 @foreach ($progresses as $progress)
 
-    <table class="table">
+    <table class="table table-bordered">
         <tbody>
             <tr>
-                <td class="text-center col-md-3">{{ $progress->user->name }}</td>
+                <td class="text-center col-md-2">{{ $progress->user->name }}</td>
                 <td class="col-md-4">
                     <a href="{{ action('CustomerController@show', $progress->customer->id)}}">{{$progress->customer->id}}　:　{{ $progress->customer->name }}</a>
                 </td>
             </tr>
+        </tbody>
+        <tbody>
             <tr>
                 <th scope="row" class="text-center">状態</th>
                 <td>{{ $progress->subject }}</td>
@@ -41,6 +43,11 @@
     </table>
 
     @endforeach
+    <div class="paginate">
+        <div class="page">
+            {{ $progresses->links() }}
+        </div>
+    </div>
 </div>
 
 @endsection

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Progress;
 use App\Customer;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ProgressController extends Controller
 {
@@ -21,7 +22,7 @@ class ProgressController extends Controller
      */
     public function index()
     {
-        $progresses = Progress::latest()->get();
+        $progresses = Progress::latest()->paginate(10);
         return view('progresses.index')->with('progresses', $progresses);
     }
 
@@ -104,12 +105,12 @@ class ProgressController extends Controller
         if($request->status === null) {
             $results = $query
                 ->where('body', 'like', '%' . $request->search . '%')
-                ->get();
+                ->paginate(5);
         } else {
             $results = $query
                 ->where('subject', 'like', '%' . $request->status . '%')
                 ->where('body', 'like', '%' . $request->search . '%')
-                ->get();
+                ->paginate(5);
         }
 
         return view('progresses.search')->with([

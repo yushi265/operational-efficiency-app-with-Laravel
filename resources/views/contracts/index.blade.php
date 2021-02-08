@@ -3,7 +3,11 @@
 @section('content')
 
 <div class="container">
-    <h4>成約一覧　　<a class="btn btn-outline-primary" href="{{ action('ContractController@create') }}" role="button">追加</a></h4>
+    <h4>成約一覧
+        @can('admin-higher')
+        <a class="btn btn-outline-primary" href="{{ action('ContractController@create') }}" role="button">追加</a>
+        @endcan
+    </h4>
 
     <form action="{{ url('/contracts/search' )}}" method="post">
         <div class="input-group mb-3">
@@ -18,12 +22,14 @@
     </form>
 
     @foreach ($contracts as $contract)
-    <table class="table">
+    <table class="table table-bordered">
         <tbody>
             <tr>
                 <th scope="row" class="text-center col-md-3">顧客名</th>
                 <td class="col-md-4"><a href="{{ action('CustomerController@show', $contract->customer_id)}}">{{ $contract->customer->name}}</a></td>
             </tr>
+        </tbody>
+        <tbody>
             <tr>
                 <th scope="row" class="text-center">成約種類</th>
                 <td>
@@ -53,6 +59,11 @@
         </tbody>
     </table>
     @endforeach
+    <div class="paginate">
+        <div class="page">
+            {{ $contracts->links() }}
+        </div>
+    </div>
 </div>
 
 @endsection

@@ -4,6 +4,7 @@
 
 <div class="container">
     <h4>
+        検索結果：「
         @switch($request->contract_type)
             @case(2)
                 普通預金
@@ -14,8 +15,8 @@
             @case(4)
                 融資
                 @break
-        @endswitch
-    </h4>
+        @endswitch」
+    </h4><br>
     @forelse ($results as $contract)
     <table class="table">
         <tbody>
@@ -23,6 +24,8 @@
                 <th scope="row" class="text-center col-md-3">顧客名</th>
                 <td class="col-md-4">{{ $contract->customer->name}}</td>
             </tr>
+        </tbody>
+        <tbody>
             <tr>
                 <th scope="row" class="text-center">成約種類</th>
                 <td>
@@ -54,6 +57,11 @@
     @empty
     該当結果はありません
     @endforelse
+    <div class="paginate">
+        <div class="page">
+            {{ $results->links() }}
+        </div>
+    </div>
     <a href="{{ url('/contracts') }}">←戻る</a>
 </div>
 

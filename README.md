@@ -1,5 +1,5 @@
 # SFA的業務効率化アプリ
-作成開始日：2021/01/25　　最終更新日：2021/02/01
+作成開始日：2021/01/25　　最終更新日：2021/02/05
 
 ## このプロジェクトについて
 　私は現在、金融機関で営業職として仕事をしています。業務を行う中で、不便さを感じることが多々あります。それらを解決し、一つにまとめて管理できるようなシステムがあれば業務の効率化が図れると考えました。WEB系開発企業のバックエンドエンジニアとして転職を決意するにあたり、開発の練習として今回のアプリを制作することに決めました。
@@ -130,5 +130,73 @@
 
                 return $status;
             }
+
+### 管理者権限
+**概要**
+- ユーザーを*一般、管理者、システム管理者*に分けて権限を与え使える機能を制限する。
+- システム管理者のみが使用できるのは権限の変更
+- 管理者以上で使用できるのは、顧客追加・編集、成約追加の機能。
+- そのほかは一般ユーザーも使用できるようにする。
+
+**経過**
+1. usersテーブルにroleカラムを追加。*一般 = 10、管理者 = 5、システム管理者 = 1*で管理する。
+2. ゲート機能を利用して、roleの値ごとに権限を与える。
+3. ブレードないも *@can* を使用して権限によって表示を変更。
+4. システム管理者権限でユーザーの役割を変更できるように
+5. システム管理者のみがユーザー登録できるようにコード書き換え
+6. ホーム画面追加、役割によって表示を変えた
+
+
+**工夫点**
+- *CustomerController@create*の404エラー
+　ルートをいじっていたら404エラーに。原因はURLがかぶっていたため。ルートグループの順番を入れ替えて解決
+
+        // 全ユーザ
+        Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
+            Route::get('/customers', 'CustomerController@index');
+            Route::get('/customers/{customer}', 'CustomerController@show'); ←←←ここ
+        });
+        // 管理者以上
+        Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
+            Route::get('/customers/create', 'CustomerController@create');  ←←←ここ
+            Route::post('/customers', 'CustomerController@store');
+            Route::get('/customers/{customer}/edit', 'CustomerController@edit');
+            Route::patch('/customers/{customer}', 'CustomerController@update');
+        });
+- リクエストのなかで変数を使いたかったので、下記のようにした。
+
+        $request->input('user_admin_'.$user->id)
+
+- ユーザー登録をシステム管理者に限定するためコード書き換え
+    - App\Http\Controllers\Auth\RegisterController.php
+        
+            〇リダイレクト無効化、コンストラクタを書き換え
+            // protected $redirectTo = RouteServiceProvider::HOME;
+
+            public function __construct()
+            {
+                // $this->middleware('guest');
+                $this->middleware(['auth', 'can:system-only']);
+            }
+
+    - Illuminate\Foundation\Auth\RegistersUsers.php
+
+            public function register(Request $request) {
+                $this->validator($request->all())->validate();
+                event(new Registered($user = $this->create($request->all())));
+
+                〇追加ユーザーログインを無効化
+                // $this->guard()->login($user);
+                // return $this->registered($request, $user)
+                // ?: redirect($this->redirectPath());
+
+                〇リダイレクト先を追加
+                return redirect('/admin');
+            }
+
+### 営業支援機能
+- 営業担当者が顧客情報を閲覧したときに推進すべき商品を提案する機能
+- 提案内容は定期預金、年金、思いつき次第追加
+- SuggestController
 
 ## 課題点

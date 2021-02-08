@@ -17,7 +17,7 @@ class ContractController extends Controller
      */
     public function index()
     {
-        $contracts = Contract::latest()->get();
+        $contracts = Contract::latest()->paginate(10);
         return view('contracts.index')->with('contracts', $contracts);
     }
 
@@ -49,23 +49,23 @@ class ContractController extends Controller
         $contract->save();
 
 
-        $progress = new Progress();
-        $progress->user_id = Auth::id();
-        $progress->customer_id = $request->customer_id;
-        $progress->subject = '契約成立';
+        // $progress = new Progress();
+        // $progress->user_id = Auth::id();
+        // $progress->customer_id = $request->customer_id;
+        // $progress->subject = '契約成立';
 
-        switch ($request->contract_type) {
-            case '2':
-                $progress->body = '普通預金￥' . number_format($request->amount) . '入金';
-                break;
-            case '3':
-                $progress->body = '定期預金￥' . number_format($request->amount) . '契約';
-                break;
-            case '4':
-                $progress->body = '融資￥' . number_format($request->amount) . '実行';
-                break;
-        }
-        $progress->save();
+        // switch ($request->contract_type) {
+        //     case '2':
+        //         $progress->body = '普通預金￥' . number_format($request->amount) . '入金';
+        //         break;
+        //     case '3':
+        //         $progress->body = '定期預金￥' . number_format($request->amount) . '契約';
+        //         break;
+        //     case '4':
+        //         $progress->body = '融資￥' . number_format($request->amount) . '実行';
+        //         break;
+        // }
+        // $progress->save();
 
         return redirect('/contracts');
     }
@@ -121,7 +121,7 @@ class ContractController extends Controller
         $results = $query
             ->where('contract_type', $request->contract_type)
             ->orderby('created_at', 'desc')
-            ->get();
+            ->paginate(10);
 
         return view('contracts.search')->with([
             'results' => $results,

@@ -11,7 +11,7 @@
         @endif
     </h4>
     @foreach ($results as $progress)
-    <table class="table">
+    <table class="table table-bordered">
         <tbody>
             <tr>
                 <th scope="row" class="text-center col-md-3">{{ $progress->user->name }}</th>
@@ -30,6 +30,11 @@
         </tbody>
     </table>
     @endforeach
+    <div class="paginate">
+        <div class="page">
+            {{ $results->links() }}
+        </div>
+    </div>
     <a href="{{ url('/progresses') }}">←戻る</a>
 </div>
 

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class Customer extends Model
 {
-    protected $fillable = ['name', 'gender', 'birth', 'tel', 'address', 'mail', 'job', 'company', 'ordinary_deposit', 'time_deposit', 'loan_amount'];
+    protected $fillable = ['name', 'ruby', 'gender', 'birth', 'tel', 'address', 'mail', 'job', 'company'];
 
     public function progresses()
     {
@@ -25,7 +25,7 @@ class Customer extends Model
      */
     public static function getAllCustomer()
     {
-        $customers = DB::table('customers')->paginate(15);
+        $customers = DB::table('customers')->paginate(10);
 
         foreach ($customers as $customer) {
             $customer->age = self::getAge($customer->birth);

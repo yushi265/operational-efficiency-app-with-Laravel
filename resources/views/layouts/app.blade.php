@@ -35,9 +35,23 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li><a href="{{url('/customers')}}">顧客管理　</a></li>
-                        <li><a href="{{url('/progresses')}}">進捗管理　</a></li>
-                        <li><a href="{{url('/contracts')}}">成約情報　</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url('/home')}}">HOME</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url('/customers')}}">顧客管理</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url('/progresses')}}">進捗管理</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url('/contracts')}}">成約情報</a>
+                        </li>
+                        @can('system-only')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/admin') }}">権限管理</a>
+                        </li>
+                        @endcan
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -55,7 +69,15 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    {{ Auth::user()->name }}
+                                    @can('system-only')
+                                        (システム管理者)
+                                    @elsecan('admin-higher')
+                                        (管理者)
+                                    @elsecan('user-higher')
+                                        (一般)
+                                    @endcan
+                                    <span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -79,6 +101,10 @@
         <main class="py-4">
             @yield('content')
         </main>
+    </div>
+
+    <div class="footer">
+        © 2021 SHINA
     </div>
 </body>
 </html>
