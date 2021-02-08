@@ -19,7 +19,7 @@
             <button class="btn btn-outline-primary" type="submit" id="button-addon2">検索</button>
         </div>
     </form>
-@foreach ($progresses as $progress)
+@forelse ($progresses as $progress)
 
     <table class="table table-bordered">
         <tbody>
@@ -41,8 +41,9 @@
             </tr>
         </tbody>
     </table>
-
-    @endforeach
+    @empty
+    まだ進捗はありません
+    @endforelse
     <div class="paginate">
         <div class="page">
             {{ $progresses->links() }}

@@ -7,13 +7,19 @@
         @csrf
         {{ method_field('patch') }}
         <div class="row g-2">
-            <div class="col-md-8">
+            <div class="col-md-5">
                 <div class="form-floating mb-3">
                     <input type="text" name="name" class="form-control" id="name" placeholder="名前" value="{{old('name', $customer->name)}}" required>
                     <label for="name">名前</label>
                 </div>
             </div>
             <div class="col-md-4">
+                <div class="form-floating mb-3">
+                    <input type="text" name="ruby" class="form-control" id="ruby" placeholder="フリガナ" value="{{old('name', $customer->ruby)}}" required>
+                    <label for="ruby">フリガナ</label>
+                </div>
+            </div>
+            <div class="col-md-3">
                 <div class="form-floating">
                     <select class="form-select" name="gender" id="gender" aria-label="Floating label select example" required>
                         <option value="男"

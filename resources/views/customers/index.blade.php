@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container">
-    <h4>顧客データベース　　　　個人|<a href="#">法人</a></h4>
+    <h4>顧客データベースgit</h4>
     <table class="table table-hover table-bordered">
         <tbody>
             <tr>

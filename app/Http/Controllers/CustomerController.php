@@ -42,7 +42,9 @@ class CustomerController extends Controller
         $customer->age = Customer::getAge($customer->birth);
         $deposit_status = Contract::getDepositStatus($customer->id);
 
-        return view('customers.show')->with(['customer' => $customer, 'deposit_status' => $deposit_status]);
+        $suggests = Customer::getSuggests($customer->age, $deposit_status);
+
+        return view('customers.show')->with(['customer' => $customer, 'deposit_status' => $deposit_status, 'suggests' => $suggests]);
     }
 
     public function edit(Customer $customer)
@@ -53,6 +55,7 @@ class CustomerController extends Controller
     public function update(Request $request, Customer $customer)
     {
         $customer->name = $request->name;
+        $customer->ruby = $request->ruby;
         $customer->gender = $request->gender;
         $customer->birth = $request->birth;
         $customer->tel = $request->tel;

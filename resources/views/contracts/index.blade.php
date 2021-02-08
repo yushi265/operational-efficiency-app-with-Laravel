@@ -21,7 +21,7 @@
         </div>
     </form>
 
-    @foreach ($contracts as $contract)
+    @forelse ($contracts as $contract)
     <table class="table table-bordered">
         <tbody>
             <tr>
@@ -58,7 +58,9 @@
             @endif
         </tbody>
     </table>
-    @endforeach
+    @empty
+    まだ成約はありません
+    @endforelse
     <div class="paginate">
         <div class="page">
             {{ $contracts->links() }}
