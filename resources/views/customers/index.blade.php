@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container">
-    <h4>顧客データベースgit</h4>
+    <h4>顧客データベース</h4>
     <table class="table table-hover table-bordered">
         <tbody>
             <tr>
@@ -25,7 +25,6 @@
                 </td>
                 <td class="text-center">@include('customers.gender')</td>
                 <td class="text-center">{{ $customer->age }}</td>
-                {{-- <td>{{ $customer->birth }}</td> --}}
                 <td class="text-center">{{ $customer->tel }}</td>
                 <td>{{ $customer->address }}</td>
             </tr>

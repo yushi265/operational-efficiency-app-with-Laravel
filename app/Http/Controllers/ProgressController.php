@@ -22,7 +22,7 @@ class ProgressController extends Controller
      */
     public function index()
     {
-        $progresses = Progress::latest()->paginate(10);
+        $progresses = Progress::orderBy('id', 'desc')->paginate(10);
         return view('progresses.index')->with('progresses', $progresses);
     }
 

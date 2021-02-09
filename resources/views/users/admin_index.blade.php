@@ -38,9 +38,11 @@
                                 @break
                                 @endswitch
                             </option>
+                            @if (Auth::id() !== $user->id)
                             <option value="1">システム管理者</option>
                             <option value="5">管理者</option>
                             <option value="10">一般ユーザー</option>
+                            @endif
                         </select>
                     </td>
                 </tr>
