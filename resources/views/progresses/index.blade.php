@@ -45,8 +45,12 @@
         </div>
         <div class="col-2">
             @can('admin-higher')
-                <a class="btn btn-outline-success" href="{{ action('ProgressController@edit', $progress)}}" role="button">編集</a>
-                <a class="btn btn-outline-danger" href="#" role="button">削除</a>
+                <a class="btn btn-outline-success" href="{{ action('ProgressController@edit', $progress) }}" role="button">編集</a>
+                <form action="{{ action('ProgressController@destroy', $progress) }}" method="post">
+                    @csrf
+                    @method('delete')
+                    <button class="btn btn-outline-danger" type="submit" value="{{ $progress->id }}" role="button">削除</button>
+                </form>
             {{-- @elsecan('user-higher')
                 @if ($progress->user->id === $auth->id)
                     <a class="btn btn-outline-success" href="#" role="button">編集</a>

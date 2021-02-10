@@ -31,6 +31,7 @@ Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
 
     Route::get('/progresses/{progress}/edit', 'ProgressController@edit');
     Route::patch('/progresses/{progress}', 'ProgressController@update');
+    Route::delete('/progresses/{progress}', 'ProgressController@destroy');
 
     Route::get('/contracts/create', 'ContractController@create');
     Route::post('contracts', 'ContractController@store');
