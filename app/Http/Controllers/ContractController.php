@@ -87,9 +87,9 @@ class ContractController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Contract $contract)
     {
-        //
+        return view('contracts.edit')->with('contract', $contract);
     }
 
     /**
@@ -99,9 +99,13 @@ class ContractController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Contract $contract)
     {
-        //
+        $contract->contract_type = $request->contract_type;
+        $contract->amount = $request->amount;
+        $contract->due_date = $request->due_date;
+        $contract->save();
+        return redirect('/contracts');
     }
 
     /**
@@ -110,9 +114,10 @@ class ContractController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Contract $contract)
     {
-        //
+        $contract->delete();
+        return redirect()-back();
     }
 
     public function search(Request $request)

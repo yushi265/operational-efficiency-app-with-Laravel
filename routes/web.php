@@ -35,6 +35,9 @@ Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
 
     Route::get('/contracts/create', 'ContractController@create');
     Route::post('contracts', 'ContractController@store');
+    Route::get('/contracts/{contract}/edit', 'ContractController@edit');
+    Route::patch('/contracts/{contract}', 'ContractController@update');
+    Route::delete('/contracts/{contract}', 'ContractController@destroy');
 });
 
 // 全ユーザ
