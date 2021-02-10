@@ -22,8 +22,9 @@ class ProgressController extends Controller
      */
     public function index()
     {
+        $auth = Auth::user();
         $progresses = Progress::latest()->paginate(10);
-        return view('progresses.index')->with('progresses', $progresses);
+        return view('progresses.index')->with(['progresses' => $progresses, 'auth' => $auth]);
     }
 
     /**
@@ -71,9 +72,9 @@ class ProgressController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Progress $progress)
     {
-        //
+        return view('progresses.edit')->with('progress', $progress);
     }
 
     /**
@@ -83,9 +84,12 @@ class ProgressController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Progress $progress)
     {
-        //
+        $progress->subject = $request->status;
+        $progress->body = $request->body;
+        $progress->save();
+        return redirect('/progresses');
     }
 
     /**

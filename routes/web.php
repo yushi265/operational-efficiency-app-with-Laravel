@@ -29,6 +29,9 @@ Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
     Route::get('/customers/{customer}/edit', 'CustomerController@edit');
     Route::patch('/customers/{customer}', 'CustomerController@update');
 
+    Route::get('/progresses/{progress}/edit', 'ProgressController@edit');
+    Route::patch('/progresses/{progress}', 'ProgressController@update');
+
     Route::get('/contracts/create', 'ContractController@create');
     Route::post('contracts', 'ContractController@store');
 });

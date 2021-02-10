@@ -20,27 +20,40 @@
         </div>
     </form>
 @forelse ($progresses as $progress)
-
-    <table class="table table-bordered">
-        <tbody>
-            <tr>
-                <td class="text-center col-md-2">{{ $progress->user->name }}</td>
-                <td class="col-md-4">
-                    <a href="{{ action('CustomerController@show', $progress->customer->id)}}">{{$progress->customer->id}}　:　{{ $progress->customer->name }}</a>
-                </td>
-            </tr>
-        </tbody>
-        <tbody>
-            <tr>
-                <th scope="row" class="text-center">状態</th>
-                <td>{{ $progress->subject }}</td>
-            </tr>
-            <tr>
-                <th scope="row" class="text-center">内容</th>
-                <td>{{ $progress->body }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col-10">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td class="text-center col-5">{{ $progress->user->name }}</td>
+                        <td class="">
+                            <a href="{{ action('CustomerController@show', $progress->customer->id)}}">{{$progress->customer->id}}　:　{{ $progress->customer->name }}</a>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr>
+                        <th scope="row" class="text-center">状態</th>
+                        <td>{{ $progress->subject }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-center">内容</th>
+                        <td>{{ $progress->body }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-2">
+            @can('admin-higher')
+                <a class="btn btn-outline-success" href="{{ action('ProgressController@edit', $progress)}}" role="button">編集</a>
+                <a class="btn btn-outline-danger" href="#" role="button">削除</a>
+            {{-- @elsecan('user-higher')
+                @if ($progress->user->id === $auth->id)
+                    <a class="btn btn-outline-success" href="#" role="button">編集</a>
+                @endif --}}
+            @endcan
+        </div>
+    </div>
     @empty
     まだ進捗はありません
     @endforelse

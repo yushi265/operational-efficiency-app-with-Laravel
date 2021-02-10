@@ -4,8 +4,8 @@
 
 <div class="container">
     <h4>　　{{ $customer->id}}　　{{ $customer->name}}（{{ $customer->ruby }}）</h4>
-    <div class="attribute row">
-        <div class="details col-8">
+    <div class="row">
+        <div class="col-8">
             <table class="table table-bordered">
                 <tbody>
                     <tr>
@@ -80,24 +80,42 @@
 
     <br>
     <h4>活動記録(最新５件)</h4>
-
     @forelse ($customer->progresses()->latest()->limit(5)->get() as $progress)
-    <table class="table table-bordered">
-        <tbody>
-            <tr>
-                <th scope="row" class="text-center col-md-3">{{ $progress->user->name }}</th>
-                <td class="col-md-4">{{ $progress->created_at }}</td>
-            </tr>
-            <tr>
-                <th scope="row" class="text-center">状態</th>
-                <td >{{ $progress->subject }}</td>
-            </tr>
-            <tr>
-                <th scope="row" class="text-center">内容</th>
-                <td>{{ $progress->body }}</td>
-            </tr>
-        </tbody>
-    </table>
+        @if ($progress->user->id === $auth_id )
+            <table class="table table-bordered col-10 justify-content-end">
+                <tbody>
+                    <tr>
+                        <th scope="row " class="text-center col-3">**{{ $progress->user->name }}**</th>
+                        <td class="col-4">{{ $progress->created_at }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-center">状態</th>
+                        <td >{{ $progress->subject }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-center">内容</th>
+                        <td>{{ $progress->body }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            @else
+            <table class="table table-bordered col-10">
+            <tbody>
+                <tr>
+                    <th scope="row" class="text-center col-md-3">{{ $progress->user->name }}</th>
+                    <td class="col-md-4">{{ $progress->created_at }}</td>
+                </tr>
+                <tr>
+                    <th scope="row" class="text-center">状態</th>
+                    <td >{{ $progress->subject }}</td>
+                </tr>
+                <tr>
+                    <th scope="row" class="text-center">内容</th>
+                    <td>{{ $progress->body }}</td>
+                </tr>
+            </tbody>
+        </table>
+        @endif
     @empty
     <table class="table">
         <tbody>
