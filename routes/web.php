@@ -46,10 +46,11 @@ Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
 
     Route::get('/customers', 'CustomerController@index');
     Route::get('/customers/{customer}', 'CustomerController@show');
+    Route::get('/customers', 'CustomerController@search');
 
     Route::resource('progresses', 'ProgressController');
-    Route::post('/progresses/search', 'ProgressController@search');
+    Route::get('/progresses', 'ProgressController@search');
 
     Route::get('/contracts', 'ContractController@index');
-    Route::post('/contracts/search', 'ContractController@search');
+    Route::get('/contracts/search', 'ContractController@search');
 });

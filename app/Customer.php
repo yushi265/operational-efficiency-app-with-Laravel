@@ -23,10 +23,8 @@ class Customer extends Model
      * すべての顧客情報を取得
      * @return array $customers
      */
-    public static function getAllCustomer()
+    public static function setAllCustomersAge($customers)
     {
-        $customers = DB::table('customers')->paginate(10);
-
         foreach ($customers as $customer) {
             $customer->age = self::getAge($customer->birth);
         }

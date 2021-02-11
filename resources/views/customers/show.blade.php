@@ -99,7 +99,7 @@
                 </tbody>
             </table>
             @else
-            <table class="table table-bordered col-10">
+            <table class="table table-bordered col-12">
             <tbody>
                 <tr>
                     <th scope="row" class="text-center col-md-3">{{ $progress->user->name }}</th>

@@ -117,19 +117,19 @@ class ContractController extends Controller
     public function destroy(Contract $contract)
     {
         $contract->delete();
-        return redirect()-back();
+        return redirect('/contracts');
     }
 
     public function search(Request $request)
     {
         $query = Contract::query();
-        $results = $query
-            ->where('contract_type', $request->contract_type)
+        $contracts = $query
+            ->where('contract_type', $request->input('contract_type'))
             ->orderby('created_at', 'desc')
             ->paginate(10);
 
-        return view('contracts.search')->with([
-            'results' => $results,
+        return view('contracts.index')->with([
+            'contracts' => $contracts,
             'request' => $request,
         ]);
     }

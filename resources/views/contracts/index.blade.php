@@ -9,9 +9,8 @@
         @endcan
     </h4>
 
-    <form action="{{ url('/contracts/search' )}}" method="post">
+    <form action="{{ action('ContractController@search') }}" method="get">
         <div class="input-group mb-3">
-            @csrf
             <select class="form-select col-md-4" name="contract_type" id="inputGroupSelect04" aria-label="Example select with button addon">
                 <option value="2">普通預金</option>
                 <option value="3">定期預金</option>

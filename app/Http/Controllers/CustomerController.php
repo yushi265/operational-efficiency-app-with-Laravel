@@ -14,7 +14,8 @@ class CustomerController extends Controller
 {
     public function index()
     {
-        $customers = Customer::getAllCustomer();
+        $customers = DB::table('customers')->paginate(10);
+        $customers = Customer::setAllCustomersAge($customers);
         return view('customers.index')->with('customers', $customers);
     }
 
@@ -70,4 +71,24 @@ class CustomerController extends Controller
     }
 
     public function delete() {}
+
+    public function search(Request $request)
+    {
+        $search = $request->search;
+        $query = Customer::query();
+        $customers = $query
+            ->where('name', 'like', '%' . $search . '%')
+            ->orWhere('gender', 'like', '%' . $search . '%')
+            ->orWhere('tel', 'like', '%' . $search . '%')
+            ->orWhere('address', 'like', '%' . $search . '%')
+            ->paginate(10);
+
+        $customers = Customer::setAllCustomersAge($customers);
+
+        return view('customers.index')->with([
+            'customers' => $customers,
+            'search' => $search,
+        ]);
+    }
+
 }
