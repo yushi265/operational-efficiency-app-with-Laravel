@@ -13,9 +13,15 @@
             <input type="text" class="form-control" placeholder="内容を検索" name="search" aria-label="Recipient's username" aria-describedby="button-addon2" value="{{$request->input('search')}}">
             <select class="form-select col-md-3" name="status" id="inputGroupSelect04" aria-label="Example select with button addon">
                 <option value="">状態</option>
-                <option value="進捗">進捗</option>
-                <option value="有効情報">有効情報</option>
-                <option value="契約成立">契約成立</option>
+                <option value="進捗">
+                    進捗
+                </option>
+                <option value="有効情報">
+                    有効情報
+                </option>
+                <option value="契約成立">
+                    契約成立
+                </option>
             </select>
             <button class="btn btn-outline-primary" type="submit" id="button-addon2">検索</button>
         </div>

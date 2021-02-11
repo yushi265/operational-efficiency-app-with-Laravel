@@ -8,10 +8,11 @@
         @method('patch')
             <div class="col-md-8">
                 <h4>ID:{{ $contract->customer->id}}　{{ $contract->customer->name }}</h4>
+                <input type="hidden" name="customer_id" value="{{ $contract->customer_id }}">
             </div>
             <div class="col-md-4">
                 <div class="form-floating mb-3">
-                    <select class="form-select" name="contract_type" id="contract_type" aria-label="Floating label select example" required>
+                    <select class="form-select" name="contract_type" id="contract_type" aria-label="Floating label select example">
                         <option value="02"
                             @if (old('contract_type', $contract->contract_type) == '2')
                                 selected
@@ -33,14 +34,14 @@
             </div>
             <div class="col-md">
                 <div class="form-floating mb-3">
-                    <input type="text" name="amount" class="form-control" id="amount" placeholder="金額"  value="{{ old('amount', $contract->amount)}}" required>
+                    <input type="text" name="amount" class="form-control" id="amount" placeholder="金額"  value="{{ old('amount', $contract->amount)}}">
                     <label for="amount">金額</label>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-floating mb-3">
                     <select class="form-select" name="due_date" id="due_date" aria-label="Floating label select example">
-                        <option value="{{ old('due_date', $contract->due_date) }}" selected>{{ old('due_date', $contract->due_date) }}</option>
+                        <option value="{{ old('due_date', $contract->due_date) }}">{{ old('due_date', $contract->due_date) }}</option>
                         <option value="">-</option>
                         @for ($i = 1; $i <= 10; $i++)
                         <option value="{{ date("Y/m/d", strtotime('+'.$i.' year')) }}">{{ $i }}年</option>

@@ -81,25 +81,7 @@
     <br>
     <h4>活動記録(最新５件)</h4>
     @forelse ($customer->progresses()->latest()->limit(5)->get() as $progress)
-        @if ($progress->user->id === $auth_id )
-            <table class="table table-bordered col-10 justify-content-end">
-                <tbody>
-                    <tr>
-                        <th scope="row " class="text-center col-3">**{{ $progress->user->name }}**</th>
-                        <td class="col-4">{{ $progress->created_at }}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="text-center">状態</th>
-                        <td >{{ $progress->subject }}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="text-center">内容</th>
-                        <td>{{ $progress->body }}</td>
-                    </tr>
-                </tbody>
-            </table>
-            @else
-            <table class="table table-bordered col-12">
+        <table class="table table-bordered col-12">
             <tbody>
                 <tr>
                     <th scope="row" class="text-center col-md-3">{{ $progress->user->name }}</th>
@@ -115,7 +97,6 @@
                 </tr>
             </tbody>
         </table>
-        @endif
     @empty
     <table class="table">
         <tbody>

@@ -24,19 +24,26 @@ class CustomerController extends Controller
         return view('customers.create');
     }
 
-    public function store(Request $request)
+    public function store(CustomerRequest $request)
     {
         $customer = new Customer();
         $customer->name = $request->name;
+        $customer->ruby = $request->ruby;
         $customer->gender = $request->gender;
         $customer->birth = $request->birth;
         $customer->tel = $request->tel;
         $customer->address = $request->address;
-        $customer->mail = $request->mail;
         $customer->job = $request->job;
-        $customer->company = $request->company;
+        if(isset($request->mail))
+        {
+            $customer->mail = $request->mail;
+        }
+        if(isset($request->company))
+        {
+            $customer->company = $request->company;
+        }
         $customer->save();
-        return redirect()->action('CustomerController@index');
+        return redirect('/customers');
     }
 
     public function show(Customer $customer)
@@ -55,7 +62,7 @@ class CustomerController extends Controller
         return view('customers.edit')->with('customer', $customer);
     }
 
-    public function update(Request $request, Customer $customer)
+    public function update(CustomerRequest $request, Customer $customer)
     {
         $customer->name = $request->name;
         $customer->ruby = $request->ruby;
@@ -78,9 +85,12 @@ class CustomerController extends Controller
         $query = Customer::query();
         $customers = $query
             ->where('name', 'like', '%' . $search . '%')
+            ->orWhere('ruby', 'like', '%' . $search . '%')
             ->orWhere('gender', 'like', '%' . $search . '%')
             ->orWhere('tel', 'like', '%' . $search . '%')
             ->orWhere('address', 'like', '%' . $search . '%')
+            ->orWhere('job', 'like', '%' . $search . '%')
+            ->orWhere('company', 'like', '%' . $search . '%')
             ->paginate(10);
 
         $customers = Customer::setAllCustomersAge($customers);

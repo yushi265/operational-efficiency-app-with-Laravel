@@ -9,19 +9,19 @@
         <div class="row g-2">
             <div class="col-md-5">
                 <div class="form-floating mb-3">
-                    <input type="text" name="name" class="form-control" id="name" placeholder="名前" value="{{old('name', $customer->name)}}" required>
+                    <input type="text" name="name" class="form-control" id="name" placeholder="名前" value="{{old('name', $customer->name)}}">
                     <label for="name">名前</label>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-floating mb-3">
-                    <input type="text" name="ruby" class="form-control" id="ruby" placeholder="フリガナ" value="{{old('name', $customer->ruby)}}" required>
+                    <input type="text" name="ruby" class="form-control" id="ruby" placeholder="フリガナ" value="{{old('ruby', $customer->ruby)}}">
                     <label for="ruby">フリガナ</label>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-floating">
-                    <select class="form-select" name="gender" id="gender" aria-label="Floating label select example" required>
+                    <select class="form-select" name="gender" id="gender" aria-label="Floating label select example">
                         <option value="男"
                             @if (old('gender', $customer->gender) == '男')
                                 selected
@@ -45,13 +45,13 @@
             <div class="row g-2">
                 <div class="col-md">
                     <div class="form-floating mb-3">
-                        <input type=text class="form-control" name="address" id="address" placeholder="住所" value="{{old('address', $customer->address)}}" required>
+                        <input type=text class="form-control" name="address" id="address" placeholder="住所" value="{{old('address', $customer->address)}}">
                         <label for="address">住所</label>
                     </div>
                 </div>
                 <div class="col-md">
                     <div class="form-floating mb-3">
-                        <input type=text class="form-control" name="birth" id="birth" placeholder="住所" value="{{old('birth', $customer->birth)}}" required>
+                        <input type=text class="form-control" name="birth" id="birth" placeholder="住所" value="{{old('birth', $customer->birth)}}">
                         <label for="birth">生年月日　例:2000-03-25</label>
                     </div>
                 </div>
@@ -60,7 +60,7 @@
             <div class="row g-2">
                 <div class="col-md">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" name="tel" id="tel" placeholder="電話番号" value="{{old('tel', $customer->tel)}}" required>
+                        <input type="text" class="form-control" name="tel" id="tel" placeholder="電話番号" value="{{old('tel', $customer->tel)}}">
                         <label for="tel">電話番号</label>
                     </div>
                 </div>
@@ -75,7 +75,7 @@
             <div class="row g-2">
                 <div class="col-md-4">
                     <div class="form-floating">
-                        <select class="form-select" name="job" id="job" aria-label="Floating label select example" required>
+                        <select class="form-select" name="job" id="job" aria-label="Floating label select example">
                             <option value="会社員"
                                 @if (old('job', $customer->job) == '会社員')
                                     selected

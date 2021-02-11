@@ -7,6 +7,7 @@ use App\Progress;
 use App\Customer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\ProgressRequest;
 
 class ProgressController extends Controller
 {
@@ -44,7 +45,7 @@ class ProgressController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Customer $customer)
+    public function store(ProgressRequest $request, Customer $customer)
     {
         $progress = new Progress();
         $progress->user_id = Auth::id();
@@ -52,7 +53,7 @@ class ProgressController extends Controller
         $progress->subject = $request->status;
         $progress->body = $request->body;
         $progress->save();
-        return redirect()->action('ProgressController@index');
+        return redirect('/progresses');
     }
 
     /**
@@ -84,7 +85,7 @@ class ProgressController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Progress $progress)
+    public function update(ProgressRequest $request, Progress $progress)
     {
         $progress->subject = $request->status;
         $progress->body = $request->body;

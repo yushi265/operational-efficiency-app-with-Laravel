@@ -8,7 +8,7 @@
 
     <form action="{{ url('/customers' )}}" method="get">
         <div class="input-group mb-3 col-md-6">
-            <input type="text" class="form-control" placeholder="search" name="search" aria-label="Recipient's username" aria-describedby="button-addon2" value="{{$search}}">
+            <input type="text" class="form-control" placeholder="入力してください" name="search" aria-label="Recipient's username" aria-describedby="button-addon2" value="{{$search}}">
             <button class="btn btn-outline-primary" type="submit" id="button-addon2">検索</button>
         </div>
     </form>

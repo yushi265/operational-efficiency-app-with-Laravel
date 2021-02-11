@@ -9,6 +9,7 @@
             <div class="col-md-8">
                 <div class="form-floating mb-3">
                     <h4>ID：{{ $progress->customer->id }}　{{ $progress->customer->name }}</h4>
+                    <input type="hidden" name="customer_id" value="{{ $progress->customer_id }}">
                 </div>
             </div>
             <div class="col-md-4">
