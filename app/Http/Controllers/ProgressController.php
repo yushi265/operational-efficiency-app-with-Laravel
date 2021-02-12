@@ -7,6 +7,7 @@ use App\Progress;
 use App\Customer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\ProgressRequest;
 
 class ProgressController extends Controller
 {
@@ -22,8 +23,9 @@ class ProgressController extends Controller
      */
     public function index()
     {
+        $auth = Auth::user();
         $progresses = Progress::latest()->paginate(10);
-        return view('progresses.index')->with('progresses', $progresses);
+        return view('progresses.index')->with(['progresses' => $progresses, 'auth' => $auth]);
     }
 
     /**
@@ -43,7 +45,7 @@ class ProgressController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Customer $customer)
+    public function store(ProgressRequest $request, Customer $customer)
     {
         $progress = new Progress();
         $progress->user_id = Auth::id();
@@ -51,7 +53,7 @@ class ProgressController extends Controller
         $progress->subject = $request->status;
         $progress->body = $request->body;
         $progress->save();
-        return redirect()->action('ProgressController@index');
+        return redirect('/progresses');
     }
 
     /**
@@ -71,9 +73,9 @@ class ProgressController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Progress $progress)
     {
-        //
+        return view('progresses.edit')->with('progress', $progress);
     }
 
     /**
@@ -83,9 +85,12 @@ class ProgressController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProgressRequest $request, Progress $progress)
     {
-        //
+        $progress->subject = $request->status;
+        $progress->body = $request->body;
+        $progress->save();
+        return redirect('/progresses');
     }
 
     /**
@@ -94,27 +99,28 @@ class ProgressController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Progress $progress)
     {
-        //
+        $progress->delete();
+        return redirect()->back();
     }
 
     public function search(Request $request)
     {
         $query = Progress::query();
-        if($request->status === null) {
-            $results = $query
-                ->where('body', 'like', '%' . $request->search . '%')
-                ->paginate(5);
+        if($request->input('status') === null) {
+            $progresses = $query
+                ->where('body', 'like', '%' . $request->input('search') . '%')
+                ->paginate(10);
         } else {
-            $results = $query
-                ->where('subject', 'like', '%' . $request->status . '%')
-                ->where('body', 'like', '%' . $request->search . '%')
-                ->paginate(5);
+            $progresses = $query
+                ->where('subject', 'like', '%' . $request->input('status') . '%')
+                ->where('body', 'like', '%' . $request->input('search') . '%')
+                ->paginate(10);
         }
 
-        return view('progresses.search')->with([
-            'results' => $results,
+        return view('progresses.index')->with([
+            'progresses' => $progresses,
             'request' => $request,
         ]);
     }

@@ -43,6 +43,52 @@
                         </tbody>
                     </table>
                     @endforeach
+                    <a href="{{ url('/progresses') }}">→進捗一覧へ</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">最新の成約</div>
+                <div class="card-body">
+                    @foreach ($latest_contracts as $contract)
+                    <table class="table table-bordered small">
+                        <tbody>
+                            <tr>
+                                <th scope="row" class="text-center col-md-3">顧客名</th>
+                                <td class="col-md-4"><a href="{{ action('CustomerController@show', $contract->customer_id)}}">{{ $contract->customer->name}}</a></td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr>
+                                <th scope="row" class="text-center">成約種類</th>
+                                <td>
+                                    @switch($contract->contract_type)
+                                    @case(2)
+                                    普通預金
+                                    @break
+                                    @case(3)
+                                    定期預金
+                                    @break
+                                    @case(4)
+                                    融資
+                                    @break
+                                    @endswitch
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-center">金額</th>
+                                <td>￥{{number_format($contract->amount)}}</td>
+                            </tr>
+                            @if ($contract->contract_type !== 2)
+                            <tr>
+                                <th scope="row" class="text-center">満期日</th>
+                                <td>{{$contract->due_date}}</td>
+                            </tr>
+                            @endif
+                        </tbody>
+                    </table>
+                    @endforeach
+                    <a href="{{ url('/contracts')}}">→成約一覧へ</a>
                 </div>
             </div>
         </div>

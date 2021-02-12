@@ -23,10 +23,8 @@ class Customer extends Model
      * すべての顧客情報を取得
      * @return array $customers
      */
-    public static function getAllCustomer()
+    public static function setAllCustomersAge($customers)
     {
-        $customers = DB::table('customers')->paginate(10);
-
         foreach ($customers as $customer) {
             $customer->age = self::getAge($customer->birth);
         }
@@ -68,4 +66,26 @@ class Customer extends Model
         return $age;
     }
 
+    /**
+     * 提案を取得する
+     * @param int $age
+     * @param array $deposit_status
+     * @return array $suggests
+     */
+    public static function getSuggests($age, $deposit_status)
+    {
+        $suggests = [];
+        // 年金
+        if ($age >= 60 && $age < 65) {
+            $suggests[] = '年金が請求できる可能性があります。';
+        }
+        // 普通預金
+        if ($deposit_status['ordinary'] > 5000000) {
+            $suggests[] = '普通預金に残高があります。定期預金を推進してみましょう。';
+        }
+        if ($deposit_status['ordinary'] > 0 && $deposit_status['ordinary'] < 1000) {
+            $suggests[] = '普通預金の残高が少なくなっています。フリーローンを推進してみましょう。';
+        }
+        return $suggests;
+    }
 }

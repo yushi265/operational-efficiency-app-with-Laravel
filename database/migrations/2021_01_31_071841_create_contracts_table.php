@@ -19,7 +19,7 @@ class CreateContractsTable extends Migration
             $table->unsignedBigInteger('customer_id');
             $table->bigInteger('contract_type');
             $table->bigInteger('amount');
-            $table->date('due_date');
+            $table->date('due_date')->nullable();
             $table->timestamps();
         });
     }

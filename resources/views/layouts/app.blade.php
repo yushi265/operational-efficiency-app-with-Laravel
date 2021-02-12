@@ -102,9 +102,5 @@
             @yield('content')
         </main>
     </div>
-
-    <div class="footer">
-        © 2021 SHINA
-    </div>
-</body>
+    </body>
 </html>

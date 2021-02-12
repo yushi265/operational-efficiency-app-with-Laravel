@@ -7,10 +7,10 @@
         @csrf
             <div class="col-md-8">
                 <div class="form-floating mb-3">
-                    <select class="form-select" name="customer_id" id="customer_id" aria-label="Floating label select example" required>
-                        <option selected>選んでください</option>
+                    <select class="form-select" name="customer_id" id="customer_id" aria-label="Floating label select example">
+                        <option value="" selected>選んでください</option>
                         @foreach ($customers as $customer)
-                            <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                            <option value="{{ $customer->id }}" @if(old('customer_id') == $customer->id) selected @endif>{{ $customer->id }}:{{ $customer->name }}</option>
                         @endforeach
                     </select>
                     <label for="customer_id">顧客氏名</label>
@@ -18,17 +18,24 @@
             </div>
             <div class="col-md-4">
                 <div class="form-floating mb-3">
-                    <select class="form-select" name="status" id="status" aria-label="Floating label select example" required>
-                        <option value="進捗" selected>進捗</option>
-                        <option value="有効情報">有効情報</option>
-                        <option value="契約成立">契約成立</option>
+                    <select class="form-select" name="status" id="status" aria-label="Floating label select example">
+                        <option value="" selected>-</option>
+                        <option value="進捗" @if(old('status') == '進捗') selected @endif>
+                            進捗
+                        </option>
+                        <option value="有効情報" @if(old('status') == '有効情報') selected @endif>
+                            有効情報
+                        </option>
+                        <option value="契約成立" @if(old('status') == '契約成立') selected @endif>
+                            契約成立
+                        </option>
                     </select>
                     <label for="status">状態</label>
                 </div>
             </div>
             <div class="col-md">
                 <div class="form-floating mb-3">
-                    <input type="text" name="body" class="form-control" id="body" placeholder="内容" required>
+                    <input type="text" name="body" class="form-control" id="body" placeholder="内容">
                     <label for="body">内容</label>
                 </div>
             </div>

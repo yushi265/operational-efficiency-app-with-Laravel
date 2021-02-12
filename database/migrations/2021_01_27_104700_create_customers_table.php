@@ -19,11 +19,11 @@ class CreateCustomersTable extends Migration
             $table->string('ruby');
             $table->string('gender');
             $table->date('birth');
-            $table->string('tel', 11);
+            $table->bigInteger('tel');
             $table->string('address');
-            $table->string('mail');
+            $table->string('mail')->nullable();
             $table->string('job');
-            $table->string('company');
+            $table->string('company')->nullable();
             $table->timestamps();
         });
     }

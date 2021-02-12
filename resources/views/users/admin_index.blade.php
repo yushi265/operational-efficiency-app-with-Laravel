@@ -3,10 +3,12 @@
 @section('content')
 
 <div class="container">
+
     <h4>権限一覧　　
         <a class="btn btn-outline-primary" href="{{ route('register') }}" role="button">ユーザー追加
         </a>
-</h4>
+    </h4>
+
     <form action="{{ action('UserController@admin_set') }}" method="post">
         @csrf
         @method('patch')
@@ -38,16 +40,18 @@
                                 @break
                                 @endswitch
                             </option>
+                            @if (Auth::id() !== $user->id)
                             <option value="1">システム管理者</option>
                             <option value="5">管理者</option>
                             <option value="10">一般ユーザー</option>
+                            @endif
                         </select>
                     </td>
                 </tr>
                 @endforeach
             </tbody>
-            </table>
-        <button class="btn btn-outline-primary" type="submit">権限を変更する</button>
+        </table>
+        <button class="btn btn-outline-success" type="submit">権限を変更する</button>
     </form><br>
 
 </div>

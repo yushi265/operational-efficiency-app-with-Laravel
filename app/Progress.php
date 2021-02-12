@@ -8,7 +8,7 @@ class Progress extends Model
 {
     protected $table = 'progresses';
 
-    protected $fillable = [];
+    protected $fillable = ['user_id', 'customer_id', 'subject', 'body', 'created_at'];
 
     public function user()
     {

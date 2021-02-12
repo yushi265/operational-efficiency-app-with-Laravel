@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Progress;
+use App\Contract;
 
 class UserController extends Controller
 {
     public function home()
     {
         $latest_progresses = Progress::latest()->limit(3)->get();
-        return view('home')->with('latest_progresses', $latest_progresses);
+        $latest_contracts = Contract::latest()->limit(3)->get();
+        return view('home')->with(['latest_progresses' => $latest_progresses, 'latest_contracts' => $latest_contracts]);
     }
 
     public function admin_index()

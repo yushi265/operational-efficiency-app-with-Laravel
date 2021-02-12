@@ -29,8 +29,15 @@ Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
     Route::get('/customers/{customer}/edit', 'CustomerController@edit');
     Route::patch('/customers/{customer}', 'CustomerController@update');
 
+    Route::get('/progresses/{progress}/edit', 'ProgressController@edit');
+    Route::patch('/progresses/{progress}', 'ProgressController@update');
+    Route::delete('/progresses/{progress}', 'ProgressController@destroy');
+
     Route::get('/contracts/create', 'ContractController@create');
     Route::post('contracts', 'ContractController@store');
+    Route::get('/contracts/{contract}/edit', 'ContractController@edit');
+    Route::patch('/contracts/{contract}', 'ContractController@update');
+    Route::delete('/contracts/{contract}', 'ContractController@destroy');
 });
 
 // 全ユーザ
@@ -39,10 +46,11 @@ Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
 
     Route::get('/customers', 'CustomerController@index');
     Route::get('/customers/{customer}', 'CustomerController@show');
+    Route::get('/customers', 'CustomerController@search');
 
     Route::resource('progresses', 'ProgressController');
-    Route::post('/progresses/search', 'ProgressController@search');
+    Route::get('/progresses', 'ProgressController@search');
 
     Route::get('/contracts', 'ContractController@index');
-    Route::post('/contracts/search', 'ContractController@search');
+    Route::get('/contracts/search', 'ContractController@search');
 });
