@@ -5,7 +5,7 @@
 <div class="container">
     <h4>　　{{ $customer->id}}　　{{ $customer->name}}（{{ $customer->ruby }}）</h4>
     <div class="row">
-        <div class="col-8">
+        <div class="col-7">
             <table class="table table-bordered">
                 <tbody>
                     <tr>
@@ -43,11 +43,11 @@
                 </tbody>
             </table>
         </div>
-        <div class="suggest col-4">
+        <div class="suggest col-5">
             <h4>提案</h4>
             <ul>
                 @empty($suggests)
-                <li>提案はありません</li>
+                <li>提案はありません<br>積極的に情報収集をしましょう！</li>
                 @endempty
                 @foreach ($suggests as $suggest)
                 <li>{{$suggest}}</li>

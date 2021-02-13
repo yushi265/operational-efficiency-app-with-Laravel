@@ -72,19 +72,36 @@ class Customer extends Model
      * @param array $deposit_status
      * @return array $suggests
      */
-    public static function getSuggests($age, $deposit_status)
+    public static function getSuggests($customer, $deposit_status)
     {
         $suggests = [];
         // 年金
-        if ($age >= 60 && $age < 65) {
-            $suggests[] = '年金が請求できる可能性があります。';
+        if ($customer->age >= 60 && $customer->age < 65) {
+            $suggests[] = '年金が請求できる可能性があります。提案してみましょう！';
         }
         // 普通預金
         if ($deposit_status['ordinary'] > 5000000) {
-            $suggests[] = '普通預金に残高があります。定期預金を推進してみましょう。';
+            $suggests[] = '普通預金に残高があります。定期預金を推進してみましょう！';
         }
         if ($deposit_status['ordinary'] > 0 && $deposit_status['ordinary'] < 1000) {
-            $suggests[] = '普通預金の残高が少なくなっています。フリーローンを推進してみましょう。';
+            $suggests[] = '普通預金の残高が少なくなっています。フリーローンやカードローンを推進してみましょう！';
+        }
+        // 定期預金
+        if ($deposit_status['time'] > 10000000) {
+            $suggests[] = '大口預金先です。定期預金の満期管理に注意しましょう！';
+        }
+        // 融資
+        if ($customer->job == "学生") {
+            $suggests[] = '学生です。奨学ローンが必要な可能性があります。ご親族にお会いしたら提案してみましょう！';
+        }
+        if ($deposit_status['loan'] > 500000) {
+            if ($customer->job == "自営業") {
+                $suggests[] = '融資先です。業況を確認して、積極的に支援しましょう！';
+            } else {
+                $suggests[] = '融資あります。';
+            }
+        } elseif ($deposit_status['loan'] <= 500000 && $deposit_status['loan'] > 0) {
+            $suggests[] = '融資残高が少なくなってきました。リファイナンスを提案しましょう！';
         }
         return $suggests;
     }
