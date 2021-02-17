@@ -111,11 +111,13 @@ class ProgressController extends Controller
         if($request->input('status') === null) {
             $progresses = $query
                 ->where('body', 'like', '%' . $request->input('search') . '%')
+                ->latest()
                 ->paginate(10);
         } else {
             $progresses = $query
                 ->where('subject', 'like', '%' . $request->input('status') . '%')
                 ->where('body', 'like', '%' . $request->input('search') . '%')
+                ->latest()
                 ->paginate(10);
         }
 
