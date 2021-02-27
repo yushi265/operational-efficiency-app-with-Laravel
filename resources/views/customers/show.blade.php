@@ -81,32 +81,46 @@
     <br>
     <h4>活動記録(最新５件)</h4>
     @forelse ($customer->progresses()->latest()->limit(5)->get() as $progress)
-        <table class="table table-bordered col-12">
-            <tbody>
-                <tr>
-                    <th scope="row" class="text-center col-md-3">{{ $progress->user->name }}</th>
-                    <td class="col-md-4">{{ $progress->created_at }}</td>
-                </tr>
-                <tr>
-                    <th scope="row" class="text-center">状態</th>
-                    <td >{{ $progress->subject }}</td>
-                </tr>
-                <tr>
-                    <th scope="row" class="text-center">内容</th>
-                    <td>{{ $progress->body }}</td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="row">
+        <div class="col-11">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td class="text-center col-5">{{ $progress->user->name }}</td>
+                        <td class="">
+                            <a href="{{ action('CustomerController@show', $progress->customer->id)}}">{{$progress->customer->id}}　:　{{ $progress->customer->name }}</a>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr>
+                        <th scope="row" class="text-center">状態</th>
+                        <td>{{ $progress->subject }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-center">内容</th>
+                        <td>{{ $progress->body }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-1">
+            @can('admin-higher')
+                <a class="btn btn-outline-success" href="{{ action('ProgressController@edit', $progress) }}" role="button">編集</a>
+                <form action="{{ action('ProgressController@destroy', $progress) }}" method="post">
+                    @csrf
+                    @method('delete')
+                    <button class="btn btn-outline-danger" type="submit" value="{{ $progress->id }}" role="button">削除</button>
+                </form>
+            {{-- @elsecan('user-higher')
+                @if ($progress->user->id === $auth->id)
+                    <a class="btn btn-outline-success" href="#" role="button">編集</a>
+                @endif --}}
+            @endcan
+        </div>
+    </div>
     @empty
-    <table class="table">
-        <tbody>
-            <tr>
-                <th scope="row" class="text-center">
-                    記録はありません
-                </th>
-            </tr>
-        </tbody>
-    </table>
+    まだ進捗はありません
     @endforelse
 
 

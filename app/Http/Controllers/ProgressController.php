@@ -108,18 +108,24 @@ class ProgressController extends Controller
     public function search(Request $request)
     {
         $query = Progress::query();
-        if($request->input('status') === null) {
-            $progresses = $query
-                ->where('body', 'like', '%' . $request->input('search') . '%')
-                ->latest()
-                ->paginate(10);
-        } else {
-            $progresses = $query
-                ->where('subject', 'like', '%' . $request->input('status') . '%')
-                ->where('body', 'like', '%' . $request->input('search') . '%')
-                ->latest()
-                ->paginate(10);
+        $search = $request->input('search');
+
+        if ($request->filled('search')) {
+            $query
+                ->where('body', 'like', '%' . $search . '%')
+                ->orWhereHas('user', function ($query) use ($search) {
+                    $query->where('name', 'like', '%' . $search . '%');
+                })
+                ->orWhereHas('customer', function ($query) use ($search) {
+                    $query->where('name', 'like', '%' . $search . '%');
+                });
         }
+
+        if ($request->filled('status')) {
+            $query->where('subject', 'like', '%' . $request->input('status') . '%');
+        }
+
+        $progresses = $query->latest()->paginate(10);
 
         return view('progresses.index')->with([
             'progresses' => $progresses,

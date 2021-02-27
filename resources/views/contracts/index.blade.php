@@ -12,14 +12,17 @@
     <form action="{{ action('ContractController@search') }}" method="get">
         <div class="input-group mb-3">
             <select class="form-select col-md-4" name="contract_type" id="inputGroupSelect04" aria-label="Example select with button addon">
-                {{-- <option value="" selectes>-</option> --}}
-                <option value="2">
+                {{-- <option value="" {{ !$request->filled('contract_type') ? 'selected' : ''}}>-</option> --}}
+                <option value="2"
+                    {{ $request->input('contract_type') == '2' ? 'selected' : ''}}>
                     普通預金
                 </option>
-                <option value="3">
+                <option value="3"
+                    {{ $request->input('contract_type') == '3' ? 'selected' : ''}}>
                     定期預金
                 </option>
-                <option value="4">
+                <option value="4"
+                    {{ $request->input('contract_type') == '4' ? 'selected' : ''}}>
                     融資
                 </option>
             </select>
