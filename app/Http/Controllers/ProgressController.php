@@ -109,7 +109,14 @@ class ProgressController extends Controller
     {
         $query = Progress::query();
         $search = $request->input('search');
+        $status = $request->input('status');
 
+        if ($request->filled('status')) {
+            $query->where(function ($query) use ($status) {
+                    $query->where('subject', $status );
+            });
+        }
+        
         if ($request->filled('search')) {
             $query
                 ->where('body', 'like', '%' . $search . '%')
@@ -121,9 +128,6 @@ class ProgressController extends Controller
                 });
         }
 
-        if ($request->filled('status')) {
-            $query->where('subject', 'like', '%' . $request->input('status') . '%');
-        }
 
         $progresses = $query->latest()->paginate(10);
 

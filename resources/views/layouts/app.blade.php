@@ -36,7 +36,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{url('/home')}}">HOME</a>
+                            <a class="nav-link" href="{{url('/')}}">HOME</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{url('/customers')}}">顧客管理</a>
