@@ -2,9 +2,12 @@
 
 @section('content')
 
+<script src="https://yubinbango.github.io/yubinbango/yubinbango.js" charset="UTF-8"></script>
+
 <div class="container">
-    <form action="{{ url('/customers') }}" method="post">
+    <form action="{{ url('/customers') }}" method="post" class="h-adr">
         @csrf
+        <span class="p-country-name" style="display:none;">Japan</span>
         <div class="row g-2">
             <div class="col-md-5">
                 <div class="form-floating mb-3">
@@ -31,13 +34,19 @@
             </div>
 
             <div class="row g-2">
-                <div class="col-md">
+                <div class="col-md-2">
                     <div class="form-floating mb-3">
-                        <input type=text class="form-control" name="address" id="address" placeholder="住所" value="{{old('address')}}">
+                        <input type=text class="form-control p-postal-code" size="8" maxlength="8" name="postal_code" id="postal_code" placeholder="郵便番号" value="{{old('postal_code')}}">
+                        <label for="address">郵便番号</label>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-floating mb-3">
+                        <input type=text class="form-control p-region p-locality p-street-address p-extended-address" name="address" id="address" placeholder="住所" value="{{old('address')}}">
                         <label for="address">住所</label>
                     </div>
                 </div>
-                <div class="col-md">
+                <div class="col-md-5">
                     <div class="form-floating mb-3">
                         <input type=text class="form-control" name="birth" id="birth" placeholder="住所" value="{{old('birth')}}">
                         <label for="birth">生年月日　例:2000-03-25</label>

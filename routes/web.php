@@ -52,5 +52,5 @@ Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
     Route::get('/progresses', 'ProgressController@search');
 
     Route::get('/contracts', 'ContractController@index');
-    Route::get('/contracts/search', 'ContractController@search');
+    Route::get('/contracts', 'ContractController@search');
 });

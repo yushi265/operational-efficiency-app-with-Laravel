@@ -124,8 +124,12 @@ class ContractController extends Controller
     public function search(Request $request)
     {
         $query = Contract::query();
+
+        if ($request->filled('contract_type')) {
+            $query->where('contract_type', $request->input('contract_type'));
+        }
+        
         $contracts = $query
-            ->where('contract_type', $request->input('contract_type'))
             ->orderby('created_at', 'desc')
             ->paginate(10);
 

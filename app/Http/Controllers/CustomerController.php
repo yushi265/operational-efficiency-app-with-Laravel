@@ -52,7 +52,7 @@ class CustomerController extends Controller
         $customer->age = Customer::getAge($customer->birth);
         $deposit_status = Contract::getDepositStatus($customer->id);
 
-        $suggests = Customer::getSuggests($customer->age, $deposit_status);
+        $suggests = Customer::getSuggests($customer, $deposit_status);
 
         return view('customers.show')->with(['auth_id' => $auth_id, 'customer' => $customer, 'deposit_status' => $deposit_status, 'suggests' => $suggests]);
     }

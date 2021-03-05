@@ -13,17 +13,21 @@
             <input type="text" class="form-control" placeholder="内容を検索" name="search" aria-label="Recipient's username" aria-describedby="button-addon2" value="{{$request->input('search')}}">
             <select class="form-select col-md-3" name="status" id="inputGroupSelect04" aria-label="Example select with button addon">
                 <option value="">状態</option>
-                <option value="進捗">
+                <option value="進捗"
+                    {{ $request->input('status') == '進捗' ? 'selected' : ''}}>
                     進捗
                 </option>
-                <option value="有効情報">
+                <option value="有効情報"
+                    {{ $request->input('status') == '有効情報' ? 'selected' : ''}}>
                     有効情報
                 </option>
-                <option value="契約成立">
+                <option value="契約成立"
+                    {{ $request->input('status') == '契約成立' ? 'selected' : ''}}>
                     契約成立
                 </option>
             </select>
             <button class="btn btn-outline-primary" type="submit" id="button-addon2">検索</button>
+            <a href="{{ url('/progresses') }}" type='button' class="btn btn-outline-secondary">リセット</a>
         </div>
     </form>
 
@@ -67,7 +71,7 @@
         </div>
     </div>
     @empty
-    まだ進捗はありません
+    該当する進捗はありません
     @endforelse
     <div class="paginate">
         <div class="page">

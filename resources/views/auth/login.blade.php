@@ -8,6 +8,7 @@
                 <div class="card-header">{{ __('ログイン') }}</div>
 
                 <div class="card-body">
+                    <p>ID:　1 = システム管理者,　2 = 管理者,　3 = 営業係,　4 = 融資係,　5 = 窓口係</p>
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
@@ -58,11 +59,11 @@
                                     {{ __('ログイン') }}
                                 </button>
 
-                                @if (Route::has('password.request'))
+                                {{-- @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('パスワードを忘れた') }}
                                     </a>
-                                @endif
+                                @endif --}}
                             </div>
                         </div>
                     </form>
