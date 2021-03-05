@@ -22,18 +22,18 @@
             <div class="col-md-3">
                 <div class="form-floating">
                     <select class="form-select" name="gender" id="gender" aria-label="Floating label select example">
-                        <option value="男"
-                            @if (old('gender', $customer->gender) == '男')
+                        <option value="1"
+                            @if (old('gender', $customer->gender) == '1')
                                 selected
                             @endif>男
                         </option>
-                        <option value="女"
-                            @if (old('gender', $customer->gender) == '女')
+                        <option value="2"
+                            @if (old('gender', $customer->gender) == '2')
                                 selected
                             @endif>女
                         </option>
-                        <option value="その他"
-                            @if (old('gender', $customer->gender) == 'その他')
+                        <option value="3"
+                            @if (old('gender', $customer->gender) == '3')
                                 selected
                             @endif>その他
                         </option>

@@ -31,7 +31,18 @@
                     <td>
                         <a href="{{ url('/customers', $customer->id)}}">{{ $customer->name }}</a>
                     </td>
-                    <td class="text-center">{{ $customer->gender }}</td>
+                    <td class="text-center">
+                        @switch($customer->gender)
+                            @case(1)
+                                男
+                                @break
+                            @case(2)
+                                女
+                                @break
+                            @default
+                                その他
+                        @endswitch
+                    </td>
                     <td class="text-center">{{ $customer->age }}</td>
                     <td class="text-center">{{ $customer->tel }}</td>
                     <td>{{ $customer->address }}</td>

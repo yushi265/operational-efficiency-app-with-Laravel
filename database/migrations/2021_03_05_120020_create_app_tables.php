@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProgressesTable extends Migration
+class CreateAppTables extends Migration
 {
     /**
      * Run the migrations.
@@ -13,6 +13,20 @@ class CreateProgressesTable extends Migration
      */
     public function up()
     {
+        Schema::create('customers', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->string('ruby');
+            $table->tinyInteger('gender');
+            $table->date('birth');
+            $table->unsignedBigInteger('tel');
+            $table->string('address');
+            $table->string('mail')->nullable();
+            $table->string('job');
+            $table->string('company')->nullable();
+            $table->timestamps();
+        });
+
         Schema::create('progresses', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
@@ -33,6 +47,16 @@ class CreateProgressesTable extends Migration
                 ->on('customers')
                 ->onDelete('cascade');
         });
+
+        Schema::create('contracts', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('customer_id');
+            $table->bigInteger('contract_type');
+            $table->bigInteger('amount');
+            $table->date('due_date')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -42,6 +66,8 @@ class CreateProgressesTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('contracts');
         Schema::dropIfExists('progresses');
+        Schema::dropIfExists('customers');
     }
 }

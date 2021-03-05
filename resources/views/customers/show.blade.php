@@ -10,7 +10,18 @@
                 <tbody>
                     <tr>
                         <th scope="row" class="text-center">性別</th>
-                        <td class="">{{ $customer->gender}}</td>
+                        <td class="">
+                            @switch($customer->gender)
+                            @case(1)
+                                男
+                                @break
+                            @case(2)
+                                女
+                                @break
+                            @default
+                                その他
+                        @endswitch
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row" class="text-center">年齢</th>

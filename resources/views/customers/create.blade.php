@@ -25,9 +25,9 @@
                 <div class="form-floating">
                     <select class="form-select" name="gender" id="gender" aria-label="Floating label select example">
                         <option value="" selected>選んでください</option>
-                        <option value="男" @if(old('gender') == '男') selected  @endif>男</option>
-                        <option value="女" @if(old('gender') == '女') selected  @endif>女</option>
-                        <option value="その他" @if(old('gender') == 'その他') selected  @endif>その他</option>
+                        <option value="1" @if(old('gender') == '1') selected  @endif>男</option>
+                        <option value="2" @if(old('gender') == '2') selected  @endif>女</option>
+                        <option value="3" @if(old('gender') == '3') selected  @endif>その他</option>
                     </select>
                     <label for="gender">性別</label>
                 </div>
