@@ -106,7 +106,18 @@
                 <tbody>
                     <tr>
                         <th scope="row" class="text-center">状態</th>
-                        <td>{{ $progress->subject }}</td>
+                        <td>
+                            @switch($progress->status)
+                                @case(1)
+                                    有効情報
+                                    @break
+                                @case(5)
+                                    進捗
+                                    @break
+                                @default
+                                    契約成立
+                            @endswitch
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row" class="text-center">内容</th>

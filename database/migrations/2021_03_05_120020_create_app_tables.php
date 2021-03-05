@@ -31,7 +31,7 @@ class CreateAppTables extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('customer_id');
-            $table->string('subject');
+            $table->tinyInteger('status');
             $table->text('body');
             $table->timestamps();
             // ユーザーIDを紐づけ

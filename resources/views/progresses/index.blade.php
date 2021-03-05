@@ -13,16 +13,16 @@
             <input type="text" class="form-control" placeholder="内容を検索" name="search" aria-label="Recipient's username" aria-describedby="button-addon2" value="{{$request->input('search')}}">
             <select class="form-select col-md-3" name="status" id="inputGroupSelect04" aria-label="Example select with button addon">
                 <option value="">状態</option>
-                <option value="進捗"
-                    {{ $request->input('status') == '進捗' ? 'selected' : ''}}>
+                <option value="5"
+                    {{ $request->input('status') == '5' ? 'selected' : ''}}>
                     進捗
                 </option>
-                <option value="有効情報"
-                    {{ $request->input('status') == '有効情報' ? 'selected' : ''}}>
+                <option value="1"
+                    {{ $request->input('status') == '1' ? 'selected' : ''}}>
                     有効情報
                 </option>
-                <option value="契約成立"
-                    {{ $request->input('status') == '契約成立' ? 'selected' : ''}}>
+                <option value="9"
+                    {{ $request->input('status') == '9' ? 'selected' : ''}}>
                     契約成立
                 </option>
             </select>
@@ -46,7 +46,18 @@
                 <tbody>
                     <tr>
                         <th scope="row" class="text-center">状態</th>
-                        <td>{{ $progress->subject }}</td>
+                        <td>
+                            @switch($progress->status)
+                                @case(1)
+                                    有効情報
+                                    @break
+                                @case(5)
+                                    進捗
+                                    @break
+                                @default
+                                    契約成立
+                            @endswitch
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row" class="text-center">内容</th>

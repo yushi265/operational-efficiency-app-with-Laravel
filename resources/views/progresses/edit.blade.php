@@ -15,18 +15,18 @@
             <div class="col-md-4">
                 <div class="form-floating mb-3">
                     <select class="form-select" name="status" id="status" aria-label="Floating label select example" required>
-                        <option value="進捗"
-                            @if (old('status', $progress->status == '進捗'))
+                        <option value="5"
+                            @if (old('status', $progress->status == '5'))
                                 selected
                             @endif>進捗
                         </option>
-                        <option value="有効情報"
-                            @if (old('status', $progress->status == '有効情報'))
+                        <option value="1"
+                            @if (old('status', $progress->status == '1'))
                                 selected
                             @endif>有効情報
                         </option>
-                        <option value="契約成立"
-                            @if (old('status', $progress->status == '契約成立'))
+                        <option value="9"
+                            @if (old('status', $progress->status == '9'))
                                 selected
                             @endif>契約成立
                         </option>
