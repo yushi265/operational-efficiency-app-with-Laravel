@@ -87,26 +87,32 @@
             }
 ```
     - show.blade.php
+```php
             @forelse ($progresses as $progress)
                 {{ $progress->yourdata }}
             @empty
                 進捗がありません
             @endforelse
+```
 
 //変更後 - 直接取得せず、リレーションで並び替えて表示
 
     - CustomerController.php
+```php
             public function show(Customer $customer)
                 {
                     $customer->age = Customer::getAge($customer->birth);
                     return view('customers.show')->with('customer', $customer);
                 }
+```
     - show.blade.php
+```php
             @forelse ($customer->progresses()->orderby('id', 'desc')->get() as $progress)
                 {{ $progress->yourdata }}
             @empty
                 進捗がありません
             @endforelse
+```
 
 ### 成約管理
 **概要**
@@ -122,7 +128,7 @@
 
 **工夫点**
 - モデルContract.phpにて対象顧客の預金合計を取得する関数を作成。連想配列に入れたがもっと良い方法がある気がする。
-
+```php
         public static function getDepositStatus($id)
             {
                 $status = [];
@@ -132,6 +138,7 @@
 
                 return $status;
             }
+ ```
 
 ### 管理者権限
 **概要**
@@ -152,7 +159,7 @@
 **工夫点**
 - *CustomerController@create*の404エラー
 　ルートをいじっていたら404エラーに。原因はURLがかぶっていたため。ルートグループの順番を入れ替えて解決
-
+```php
         // 全ユーザ
         Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
             Route::get('/customers', 'CustomerController@index');
@@ -165,14 +172,15 @@
             Route::get('/customers/{customer}/edit', 'CustomerController@edit');
             Route::patch('/customers/{customer}', 'CustomerController@update');
         });
+```
 - リクエストのなかで変数を使いたかったので、下記のようにした。
-
+```php
         $request->input('user_admin_'.$user->id)
-
+```
 - ユーザー登録をシステム管理者に限定するためコード書き換え
     - App\Http\Controllers\Auth\RegisterController.php
-        
-            〇リダイレクト無効化、コンストラクタを書き換え
+```php
+            //リダイレクト無効化、コンストラクタを書き換え
             // protected $redirectTo = RouteServiceProvider::HOME;
 
             public function __construct()
@@ -180,21 +188,24 @@
                 // $this->middleware('guest');
                 $this->middleware(['auth', 'can:system-only']);
             }
+```
 
     - Illuminate\Foundation\Auth\RegistersUsers.php
 
+```php
             public function register(Request $request) {
                 $this->validator($request->all())->validate();
                 event(new Registered($user = $this->create($request->all())));
 
-                〇追加ユーザーログインを無効化
+                //追加ユーザーログインを無効化
                 // $this->guard()->login($user);
                 // return $this->registered($request, $user)
                 // ?: redirect($this->redirectPath());
 
-                〇リダイレクト先を追加
+                //リダイレクト先を追加
                 return redirect('/admin');
             }
+ ```
 
 ### 営業支援機能
 **概要**
