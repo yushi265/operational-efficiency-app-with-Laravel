@@ -78,12 +78,14 @@
 //変更前 - 進捗を直接最新順で取得
 
     - CustomerController.php
+            ```php
             public function show(Customer $customer)
             {
                 $customer->age = Customer::getAge($customer->birth);
                 $progresses = Progress::latest()->get();
                 return view('customers.show')->with(['customer' => $customer, 'progresses', $progresses]);  
             }
+            ```
     - show.blade.php
             @forelse ($progresses as $progress)
                 {{ $progress->yourdata }}
